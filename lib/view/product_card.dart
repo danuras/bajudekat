@@ -64,11 +64,14 @@ class ProductCard extends StatelessWidget {
           );
         },
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(
-              _product.image_url,
-              width: 144,
-              height: 144,
+            Center(
+              child: Image.network(
+                _product.image_url,
+                width: 144,
+                height: 144,
+              ),
             ),
             Text(_product.name),
             Text(

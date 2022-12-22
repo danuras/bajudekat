@@ -16,13 +16,13 @@ import 'package:baju_dekat/view_controller/api/endpoint.dart';
 
 class ProductCategoryController {
   Future<http.Response> create(Admin admin, String categories_name) async {
-    var uri = Uri.parse('${EndPoint.value}admin/productcategory/create');
+    var uri = Uri.https(EndPoint.value, 'api/admin/productcategory/create');
     int id = admin.id;
     String apiToken = admin.api_token;
     var request = http.MultipartRequest('POST', uri);
     request.fields['id'] = id.toString();
     request.fields['categories_name'] = categories_name;
-    request.headers['Authorization'] = 'bearer $apiToken';
+    request.fields['Authorization'] = 'bearer $apiToken';
     var hasil = await request.send();
 
     http.Response response = await http.Response.fromStream(hasil);
@@ -31,8 +31,8 @@ class ProductCategoryController {
   }
 
   Future<http.Response> showAll() async {
-    var uri = Uri.parse('${EndPoint.value}user/productcategory/showAll');
-    var request = http.MultipartRequest('GET', uri);
+    var uri = Uri.https(EndPoint.value, 'api/user/productcategory/showAll');
+    var request = http.MultipartRequest('POST', uri);
     var hasil = await request.send();
 
     http.Response response = await http.Response.fromStream(hasil);
@@ -41,7 +41,7 @@ class ProductCategoryController {
   }
 
   Future<http.Response> showByName(String categories_name) async {
-    var uri = Uri.parse('${EndPoint.value}user/productcategory/showByName');
+    var uri = Uri.https(EndPoint.value, 'api/user/productcategory/showByName');
     var request = http.MultipartRequest('POST', uri);
     request.fields['categories_name'] = categories_name;
     var hasil = await request.send();
@@ -52,7 +52,7 @@ class ProductCategoryController {
   }
 
   Future<http.Response> showById(int id) async {
-    var uri = Uri.parse('${EndPoint.value}user/productcategory/showById');
+    var uri = Uri.https(EndPoint.value, 'api/user/productcategory/showById');
     var request = http.MultipartRequest('POST', uri);
     request.fields['id'] = id.toString();
     var hasil = await request.send();

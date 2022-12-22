@@ -212,7 +212,7 @@ class _CheckoutState extends State<Checkout> {
                                               '(' +
                                               data[i]['description'] +
                                               ')' +
-                                              '\tRp ' +
+                                              '   Rp ' +
                                               data[i]['cost'][0]['value']
                                                   .toString());
                                           costs
@@ -308,54 +308,56 @@ class _CheckoutState extends State<Checkout> {
                                         'address': widget._user.address,
                                         'kurir': kurir,
                                         'total': widget._th,
+                                        'ongkos': ongkos,
                                       });
                                       TransactionController tc =
                                           TransactionController();
+                                      ProductTransactionController ptc =
+                                          ProductTransactionController();
+                                      var responsep =
+                                          await ptc.showBasket(widget._auth);
                                       var response = await tc.updateStatusPesan(
                                           widget._auth, transaction);
                                       var result = jsonDecode(response.body);
                                       if (response.statusCode == 200) {
-                                        ProductTransactionController ptc =
-                                            ProductTransactionController();
                                         GetCategory _gc = GetCategory(
                                             ProductCategoryController());
                                         List<ProductCategories> _lopc =
                                             await _gc.showAll();
-                                        var response =
-                                            await ptc.showBasket(widget._auth);
                                         List<Product> lop = [];
                                         List<ProductTransaction> lopt = [];
-                                        if (response.statusCode == 200) {
-                                          var result =
-                                              jsonDecode(response.body);
-                                          int length = result['data'].length;
+                                        if (responsep.statusCode == 200) {
+                                          var resultp =
+                                              jsonDecode(responsep.body);
+                                          int length = resultp['data'].length;
                                           for (int i = 0; i < length; i++) {
                                             lop.add(Product.fromJson({
-                                              'image_url': result['data'][i]
+                                              'image_url': resultp['data'][i]
                                                   ['image_url'],
-                                              'name': result['data'][i]['name'],
-                                              'discount': result['data'][i]
+                                              'name': resultp['data'][i]
+                                                  ['name'],
+                                              'discount': resultp['data'][i]
                                                   ['discount'],
                                               'discount_expired_at':
-                                                  result['data'][i]
+                                                  resultp['data'][i]
                                                       ['discount_expired_at'],
                                             }));
                                             lopt.add(
                                                 ProductTransaction.fromJson({
-                                              'id': result['data'][i]['id'],
+                                              'id': resultp['data'][i]['id'],
                                               'sell_price': double.parse(
-                                                  result['data'][i]
+                                                  resultp['data'][i]
                                                       ['sell_price']),
-                                              'currrency': result['data'][i]
+                                              'currrency': resultp['data'][i]
                                                   ['currrency'],
-                                              'amount': result['data'][i]
+                                              'amount': resultp['data'][i]
                                                   ['amount'],
-                                              'product_id': result['data'][i]
+                                              'product_id': resultp['data'][i]
                                                   ['product_id'],
-                                              'transaction_id': result['data']
+                                              'transaction_id': resultp['data']
                                                   [i]['transaction_id'],
                                               'weight': double.parse(
-                                                  result['data'][i]['weight']
+                                                  resultp['data'][i]['weight']
                                                       .toString()),
                                             }));
                                           }
@@ -415,90 +417,6 @@ class _CheckoutState extends State<Checkout> {
                                         ),
                                       );
                                     }
-                                    /* AuthController _auth = AuthController();
-                                    var response = await _auth.login(
-                                      _email.text,
-                                      _password.text,
-                                    );
-                                    var result = jsonDecode(response.body);
-
-                                    if (response.statusCode == 200) {
-                                      var box = await Hive.openBox('auth');
-                                      box.put(
-                                        'id',
-                                        result['data']['user']['id'],
-                                      );
-                                      box.put(
-                                        'api_token',
-                                        result['data']['api_token'],
-                                      );
-                                      Auth auth = Auth();
-                                      auth.id = box.get('id');
-                                      auth.api_token = box.get('api_token');
-
-                                      List<Product> _lod =
-                                          await widget._gp.getDiscount(0);
-                                      List<Product> _lop = await widget._gp
-                                          .getAllProduct('%%', 0);
-                                      int _dl =
-                                          await widget._gp.countDiscount();
-                                      int _pl =
-                                          await widget._gp.countBySearch('%%');
-
-                                      if (!mounted) {
-                                        return;
-                                      }
-
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            result['message'].toString(),
-                                          ),
-                                        ),
-                                      );
-
-                                      Navigator.of(context).pushAndRemoveUntil(
-                                        MaterialPageRoute<void>(
-                                          builder: (BuildContext context) =>
-                                              Menu(
-                                            Home(
-                                              false,
-                                              auth,
-                                              widget._isAdmin,
-                                              widget._admin,
-                                              _lod,
-                                              _lop,
-                                              widget._gp,
-                                              _dl,
-                                              _pl,
-                                              widget._lopc,
-                                              widget._info,
-                                            ),
-                                            false,
-                                            auth,
-                                            widget._isAdmin,
-                                            widget._admin,
-                                            widget._gp,
-                                            widget._lopc,
-                                            widget._info,
-                                          ),
-                                        ),
-                                        ModalRoute.withName('/'),
-                                      );
-                                    } else {
-                                      if (!mounted) {
-                                        return;
-                                      }
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            result['message'].toString(),
-                                          ),
-                                        ),
-                                      );
-                                    } */
                                   }
                                 },
                                 text: 'Pembayaran',

@@ -16,7 +16,7 @@ import 'package:baju_dekat/view_controller/controller/get_product.dart';
 
 class AuthController {
   Future<http.Response> login(String email, String password) async {
-    var uri = Uri.parse('${EndPoint.value}user/auth/login');
+    var uri = Uri.https(EndPoint.value, 'api/user/auth/login');
     var request = http.MultipartRequest('POST', uri);
 
     request.fields['email'] = email;
@@ -30,7 +30,7 @@ class AuthController {
   }
 
   Future<http.Response> sendEmailVerification(String email) async {
-    var uri = Uri.parse('${EndPoint.value}user/auth/sendEmailVerification');
+    var uri = Uri.https(EndPoint.value, 'api/user/auth/sendEmailVerification');
     var request = http.MultipartRequest('POST', uri);
 
     request.fields['email'] = email;
@@ -43,7 +43,7 @@ class AuthController {
   }
 
   Future<http.Response> verifyEmail(String email, String token) async {
-    var uri = Uri.parse('${EndPoint.value}user/auth/verifyEmail');
+    var uri = Uri.https(EndPoint.value, 'api/user/auth/verifyEmail');
     var request = http.MultipartRequest('POST', uri);
 
     request.fields['email'] = email;
@@ -73,7 +73,7 @@ class AuthController {
     String address,
   ) async {
     // string to uri
-    var uri = Uri.parse("${EndPoint.value}user/auth/register");
+    var uri = Uri.https(EndPoint.value, "api/user/auth/register");
 
     // create multipart request
     var request = http.MultipartRequest("POST", uri);
@@ -93,7 +93,7 @@ class AuthController {
   }
 
   Future<http.Response> reqeustForgetPassword(String email) async {
-    var uri = Uri.parse('${EndPoint.value}user/auth/requestForgetPassword');
+    var uri = Uri.https(EndPoint.value, 'api/user/auth/requestForgetPassword');
     var request = http.MultipartRequest('POST', uri);
 
     request.fields['email'] = email;
@@ -107,7 +107,7 @@ class AuthController {
 
   Future<http.Response> verifyUpdatePassword(
       String email, String password, String token) async {
-    var uri = Uri.parse('${EndPoint.value}user/auth/verifyUpdatePassword');
+    var uri = Uri.https(EndPoint.value, 'api/user/auth/verifyUpdatePassword');
     var request = http.MultipartRequest('POST', uri);
 
     request.fields['email'] = email;

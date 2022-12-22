@@ -13,7 +13,7 @@ import 'package:baju_dekat/view_controller/api/endpoint.dart';
 
 class AdminController {
   Future<http.Response> login(String email, String password) async {
-    var uri = Uri.parse('${EndPoint.value}admin/login');
+    var uri = Uri.https(EndPoint.value, 'api/admin/login');
     var request = http.MultipartRequest('POST', uri);
 
     request.fields['email'] = email;

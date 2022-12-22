@@ -15,7 +15,7 @@ import 'package:baju_dekat/view_controller/api/endpoint.dart';
 class ProductController {
   Future<http.Response> create(
       Admin admin, Product product, List<int> image, String fileName) async {
-    var uri = Uri.parse('${EndPoint.value}admin/product/create');
+    var uri = Uri.https(EndPoint.value, 'api/admin/product/create');
     int id = admin.id;
     String apiToken = admin.api_token;
     var request = http.MultipartRequest('POST', uri);
@@ -32,7 +32,7 @@ class ProductController {
     request.fields['discount'] = product.discount.toString();
     request.fields['discount_expired_at'] =
         product.discount_expired_at.toString();
-    request.headers['Authorization'] = 'bearer $apiToken';
+    request.fields['Authorization'] = 'bearer $apiToken';
     if (image != null) {
       // get file length
       var multipartFile = http.MultipartFile.fromBytes(
@@ -53,7 +53,7 @@ class ProductController {
 
   Future<http.Response> update(Admin admin, Product product, int product_id,
       List<int> image, String fileName) async {
-    var uri = Uri.parse('${EndPoint.value}admin/product/update');
+    var uri = Uri.https(EndPoint.value, 'api/admin/product/update');
     int id = admin.id;
     String apiToken = admin.api_token;
     var request = http.MultipartRequest('POST', uri);
@@ -70,7 +70,7 @@ class ProductController {
     request.fields['discount'] = product.discount.toString();
     request.fields['discount_expired_at'] =
         product.discount_expired_at.toString();
-    request.headers['Authorization'] = 'bearer $apiToken';
+    request.fields['Authorization'] = 'bearer $apiToken';
     if (image != null) {
       // get file length
       var multipartFile = http.MultipartFile.fromBytes(
@@ -90,13 +90,13 @@ class ProductController {
   }
 
   Future<http.Response> delete(Admin admin, int product_id) async {
-    var uri = Uri.parse('${EndPoint.value}admin/product/delete');
+    var uri = Uri.https(EndPoint.value, 'api/admin/product/delete');
     int id = admin.id;
     String apiToken = admin.api_token;
     var request = http.MultipartRequest('POST', uri);
     request.fields['id'] = id.toString();
     request.fields['product_id'] = product_id.toString();
-    request.headers['Authorization'] = 'bearer $apiToken';
+    request.fields['Authorization'] = 'bearer $apiToken';
     var hasil = await request.send();
 
     http.Response response = await http.Response.fromStream(hasil);
@@ -105,7 +105,7 @@ class ProductController {
   }
 
   Future<http.Response> showById(int product_id, int cust_id) async {
-    var uri = Uri.parse('${EndPoint.value}user/product/showById');
+    var uri = Uri.https(EndPoint.value, 'api/user/product/showById');
     var request = http.MultipartRequest('POST', uri);
     request.fields['product_id'] = product_id.toString();
     request.fields['cust_id'] = cust_id.toString();
@@ -117,7 +117,7 @@ class ProductController {
   }
 
   Future<http.Response> countDiscount() async {
-    var uri = Uri.parse('${EndPoint.value}user/product/countAllDiscount');
+    var uri = Uri.https(EndPoint.value, 'api/user/product/countAllDiscount');
     var request = http.MultipartRequest('POST', uri);
     var hasil = await request.send();
 
@@ -127,7 +127,7 @@ class ProductController {
   }
 
   Future<http.Response> showAllDiscount(int count) async {
-    var uri = Uri.parse('${EndPoint.value}user/product/showAllDiscount');
+    var uri = Uri.https(EndPoint.value, 'api/user/product/showAllDiscount');
     var request = http.MultipartRequest('POST', uri);
     request.fields['count'] = count.toString();
     var hasil = await request.send();
@@ -138,7 +138,7 @@ class ProductController {
   }
 
   Future<http.Response> countByCategory(int categories_id) async {
-    var uri = Uri.parse('${EndPoint.value}user/product/countByCategory');
+    var uri = Uri.https(EndPoint.value, 'api/user/product/countByCategory');
     var request = http.MultipartRequest('POST', uri);
     request.fields['categories_id'] = categories_id.toString();
     var hasil = await request.send();
@@ -149,7 +149,7 @@ class ProductController {
   }
 
   Future<http.Response> showAllByCategory(int categories_id, int count) async {
-    var uri = Uri.parse('${EndPoint.value}user/product/showAllByCategory');
+    var uri = Uri.https(EndPoint.value, 'api/user/product/showAllByCategory');
     var request = http.MultipartRequest('POST', uri);
     request.fields['categories_id'] = categories_id.toString();
     request.fields['count'] = count.toString();
@@ -161,7 +161,7 @@ class ProductController {
   }
 
   Future<http.Response> countBySearch(String search) async {
-    var uri = Uri.parse('${EndPoint.value}user/product/countBySearch');
+    var uri = Uri.https(EndPoint.value, 'api/user/product/countBySearch');
     var request = http.MultipartRequest('POST', uri);
     request.fields['search'] = search.toString();
     var hasil = await request.send();
@@ -172,7 +172,7 @@ class ProductController {
   }
 
   Future<http.Response> showBySearch(String search, int count) async {
-    var uri = Uri.parse('${EndPoint.value}user/product/showBySearch');
+    var uri = Uri.https(EndPoint.value, 'api/user/product/showBySearch');
     var request = http.MultipartRequest('POST', uri);
     request.fields['search'] = search.toString();
     request.fields['count'] = count.toString();

@@ -25,9 +25,17 @@ class AdminDetailProduct extends StatelessWidget {
   final Product _product;
   final List<ProductCategories> _lopc;
   final Information _info;
+  bool isDiscount = false;
+  double newPrice = 0;
 
   @override
   Widget build(BuildContext context) {
+    isDiscount = (_product.discount > 0) &&
+        (DateTime.parse(_product.discount_expired_at).isAfter(DateTime.now()));
+    if (isDiscount) {
+      newPrice =
+          _product.sell_price - _product.sell_price * (_product.discount / 100);
+    }
     return Scaffold(
       backgroundColor: Color(0xffdddddd),
       appBar: AppBar(
@@ -80,18 +88,17 @@ class AdminDetailProduct extends StatelessWidget {
                                   'Rp ' + _product.sell_price.toString(),
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                    decoration: TextDecoration.lineThrough,
+                                    decoration: (isDiscount)
+                                        ? TextDecoration.lineThrough
+                                        : TextDecoration.none,
                                   ),
                                 ),
-                                Text(
-                                  'Rp ' +
-                                      (_product.sell_price -
-                                              (_product.discount *
-                                                  _product.sell_price /
-                                                  100))
-                                          .toString(),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                                (isDiscount)
+                                    ? Text(
+                                        'Rp ' + (newPrice).toString(),
+                                        overflow: TextOverflow.ellipsis,
+                                      )
+                                    : SizedBox(),
                                 Text(
                                   'berat: ' +
                                       _product.weight.toString() +

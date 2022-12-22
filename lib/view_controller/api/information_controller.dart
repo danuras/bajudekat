@@ -16,7 +16,7 @@ import 'package:baju_dekat/view_controller/controller/get_product.dart';
 
 class InformationController {
   Future<http.Response> show() async {
-    var uri = Uri.parse('${EndPoint.value}user/information/show');
+    var uri = Uri.https(EndPoint.value, 'api/user/information/show');
     var request = http.MultipartRequest('POST', uri);
 
     var hasil = await request.send();
@@ -27,7 +27,7 @@ class InformationController {
   }
 
   Future<http.Response> update(Information information, Admin admin) async {
-    var uri = Uri.parse('${EndPoint.value}admin/information/update');
+    var uri = Uri.https(EndPoint.value, 'api/admin/information/update');
     var request = http.MultipartRequest('POST', uri);
 
     request.fields['short_description'] = information.short_description;
@@ -44,7 +44,7 @@ class InformationController {
     request.fields['link_youtube'] = information.link_youtube;
     request.fields['city'] = information.city;
     request.fields['address'] = information.address;
-    request.headers['Authorization'] = 'bearer ' + admin.api_token;
+    request.fields['Authorization'] = 'bearer ' + admin.api_token;
     request.fields['id'] = admin.id.toString();
     print('id' + admin.id.toString());
 

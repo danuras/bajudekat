@@ -22,6 +22,7 @@ import 'package:baju_dekat/view_controller/controller/get_product.dart';
 import 'view/menu.dart';
 
 void main() async {
+  print('ok');
   await Hive.initFlutter();
 
   Auth _auth = Auth();
@@ -33,6 +34,7 @@ void main() async {
   InformationController ic = InformationController();
 
   var infoRespon = await ic.show();
+  print('ok');
 
   var infoResult = jsonDecode(infoRespon.body);
 

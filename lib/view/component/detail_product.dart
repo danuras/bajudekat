@@ -36,9 +36,18 @@ class DetailProduct extends StatefulWidget {
 
 class _DetailProductState extends State<DetailProduct> {
   int amount = 1;
+  bool isDiscount = false;
+  double newPrice = 0;
 
   @override
   Widget build(BuildContext context) {
+    isDiscount = (widget._product.discount > 0) &&
+        (DateTime.parse(widget._product.discount_expired_at)
+            .isAfter(DateTime.now()));
+    if (isDiscount) {
+      newPrice = widget._product.sell_price -
+          widget._product.sell_price * (widget._product.discount / 100);
+    }
     return Scaffold(
       backgroundColor: Color(0xffdddddd),
       appBar: AppBar(
@@ -88,20 +97,20 @@ class _DetailProductState extends State<DetailProduct> {
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 Text(
-                                  widget._product.sell_price.toString(),
+                                  'Rp ' + widget._product.sell_price.toString(),
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                    decoration: TextDecoration.lineThrough,
+                                    decoration: (isDiscount)
+                                        ? TextDecoration.lineThrough
+                                        : TextDecoration.none,
                                   ),
                                 ),
-                                Text(
-                                  (widget._product.sell_price -
-                                          widget._product.discount *
-                                              widget._product.sell_price /
-                                              100)
-                                      .toString(),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                                (isDiscount)
+                                    ? Text(
+                                        'Rp ' + (newPrice).toString(),
+                                        overflow: TextOverflow.ellipsis,
+                                      )
+                                    : SizedBox(),
                                 Text(
                                   'berat: ' + widget._product.weight.toString(),
                                   overflow: TextOverflow.ellipsis,

@@ -1,3 +1,3 @@
 class EndPoint {
-  static String value = 'ENDPOINT';
+  static String value = 'bajudekaat.000webhostapp.com';
 }

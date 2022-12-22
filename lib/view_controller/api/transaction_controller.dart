@@ -19,7 +19,8 @@ class TransactionController {
     Auth auth,
     Transaction transaction,
   ) async {
-    var uri = Uri.parse('${EndPoint.value}user/transaction/updateStatusPesan');
+    var uri =
+        Uri.https(EndPoint.value, 'api/user/transaction/updateStatusPesan');
     int id = auth.id;
     String apiToken = auth.api_token;
     var request = http.MultipartRequest('POST', uri);
@@ -28,7 +29,8 @@ class TransactionController {
     request.fields['address'] = transaction.address;
     request.fields['kurir'] = transaction.kurir;
     request.fields['total'] = transaction.total.toString();
-    request.headers['Authorization'] = 'bearer $apiToken';
+    request.fields['ongkos'] = transaction.ongkos.toString();
+    request.fields['Authorization'] = 'bearer $apiToken';
     var hasil = await request.send();
 
     http.Response response = await http.Response.fromStream(hasil);
@@ -42,14 +44,14 @@ class TransactionController {
     String nomor_resi,
   ) async {
     var uri =
-        Uri.parse('${EndPoint.value}admin/transaction/updateStatusDikirim');
+        Uri.https(EndPoint.value, 'api/admin/transaction/updateStatusDikirim');
     int id = admin.id;
     String apiToken = admin.api_token;
     var request = http.MultipartRequest('POST', uri);
     request.fields['transaction_id'] = tid.toString();
     request.fields['id'] = id.toString();
     request.fields['nomor_resi'] = nomor_resi;
-    request.headers['Authorization'] = 'bearer $apiToken';
+    request.fields['Authorization'] = 'bearer $apiToken';
     var hasil = await request.send();
 
     http.Response response = await http.Response.fromStream(hasil);
@@ -61,13 +63,13 @@ class TransactionController {
     Admin admin,
     Transaction transaction,
   ) async {
-    var uri = Uri.parse('${EndPoint.value}admin/transaction/createByCashier');
+    var uri = Uri.https(EndPoint.value,'api/admin/transaction/createByCashier');
     int id = admin.id;
     String apiToken = admin.api_token;
     var request = http.MultipartRequest('POST', uri);
     request.fields['transaction_id'] = transaction.id.toString();
     request.fields['id'] = id.toString();
-    request.headers['Authorization'] = 'bearer $apiToken';
+    request.fields['Authorization'] = 'bearer $apiToken';
     var hasil = await request.send();
 
     http.Response response = await http.Response.fromStream(hasil);
@@ -76,13 +78,13 @@ class TransactionController {
   } */
 
   Future<http.Response> countByUserId(Auth auth, int status) async {
-    var uri = Uri.parse('${EndPoint.value}user/transaction/countByUserId');
+    var uri = Uri.https(EndPoint.value, 'api/user/transaction/countByUserId');
     int id = auth.id;
     String apiToken = auth.api_token;
     var request = http.MultipartRequest('POST', uri);
     request.fields['cust_id'] = id.toString();
     request.fields['status'] = status.toString();
-    request.headers['Authorization'] = 'bearer $apiToken';
+    request.fields['Authorization'] = 'bearer $apiToken';
     var hasil = await request.send();
 
     http.Response response = await http.Response.fromStream(hasil);
@@ -95,14 +97,14 @@ class TransactionController {
     int status,
     int count,
   ) async {
-    var uri = Uri.parse('${EndPoint.value}user/transaction/showAllByUserId');
+    var uri = Uri.https(EndPoint.value, 'api/user/transaction/showAllByUserId');
     int id = auth.id;
     String apiToken = auth.api_token;
     var request = http.MultipartRequest('POST', uri);
     request.fields['cust_id'] = id.toString();
     request.fields['status'] = status.toString();
     request.fields['count'] = count.toString();
-    request.headers['Authorization'] = 'bearer $apiToken';
+    request.fields['Authorization'] = 'bearer $apiToken';
     var hasil = await request.send();
 
     http.Response response = await http.Response.fromStream(hasil);
@@ -111,13 +113,13 @@ class TransactionController {
   }
 
   Future<http.Response> countByAll(Admin admin, int status) async {
-    var uri = Uri.parse('${EndPoint.value}user/transaction/countByUserId');
+    var uri = Uri.https(EndPoint.value, 'api/user/transaction/countByUserId');
     int id = admin.id;
     String apiToken = admin.api_token;
     var request = http.MultipartRequest('POST', uri);
     request.fields['id'] = id.toString();
     request.fields['status'] = status.toString();
-    request.headers['Authorization'] = 'bearer $apiToken';
+    request.fields['Authorization'] = 'bearer $apiToken';
     var hasil = await request.send();
 
     http.Response response = await http.Response.fromStream(hasil);
@@ -126,14 +128,14 @@ class TransactionController {
   }
 
   Future<http.Response> showAll(Admin admin, int status, int count) async {
-    var uri = Uri.parse('${EndPoint.value}admin/transaction/showAll');
+    var uri = Uri.https(EndPoint.value, 'api/admin/transaction/showAll');
     int id = admin.id;
     String apiToken = admin.api_token;
     var request = http.MultipartRequest('POST', uri);
     request.fields['id'] = id.toString();
     request.fields['status'] = status.toString();
     request.fields['count'] = count.toString();
-    request.headers['Authorization'] = 'bearer $apiToken';
+    request.fields['Authorization'] = 'bearer $apiToken';
     var hasil = await request.send();
 
     http.Response response = await http.Response.fromStream(hasil);

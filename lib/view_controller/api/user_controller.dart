@@ -10,12 +10,12 @@ import 'package:baju_dekat/view_controller/api/endpoint.dart';
 
 class UserController {
   Future<http.Response> show(Auth auth) async {
-    var uri = Uri.parse('${EndPoint.value}user/show');
+    var uri = Uri.https(EndPoint.value, 'api/user/show');
     int id = auth.id;
     String apiToken = auth.api_token;
     var request = http.MultipartRequest('POST', uri);
     request.fields['id'] = id.toString();
-    request.headers['Authorization'] = 'bearer $apiToken';
+    request.fields['Authorization'] = 'bearer $apiToken';
     var hasil = await request.send();
 
     http.Response response = await http.Response.fromStream(hasil);
@@ -24,12 +24,12 @@ class UserController {
   }
 
   Future<http.Response> showAll(Admin admin) async {
-    var uri = Uri.parse('${EndPoint.value}admin/user/showAll');
+    var uri = Uri.https(EndPoint.value, 'api/admin/user/showAll');
     int id = admin.id;
     String apiToken = admin.api_token;
     var request = http.MultipartRequest('POST', uri);
     request.fields['id'] = id.toString();
-    request.headers['Authorization'] = 'bearer $apiToken';
+    request.fields['Authorization'] = 'bearer $apiToken';
     var hasil = await request.send();
 
     http.Response response = await http.Response.fromStream(hasil);
@@ -38,7 +38,7 @@ class UserController {
   }
 
   Future<http.Response> update(Auth auth, User user) async {
-    var uri = Uri.parse('${EndPoint.value}user/update');
+    var uri = Uri.https(EndPoint.value, 'api/user/update');
     int id = auth.id;
     String apiToken = auth.api_token;
     var request = http.MultipartRequest('POST', uri);
@@ -48,7 +48,7 @@ class UserController {
     request.fields['address'] = user.address.toString();
     request.fields['email'] = user.email.toString();
     request.fields['city'] = user.city.toString();
-    request.headers['Authorization'] = 'bearer $apiToken';
+    request.fields['Authorization'] = 'bearer $apiToken';
     var hasil = await request.send();
 
     http.Response response = await http.Response.fromStream(hasil);
@@ -57,7 +57,7 @@ class UserController {
   }
 
   Future<http.Response> verifyUpdateEmail(Auth auth, User user) async {
-    var uri = Uri.parse('${EndPoint.value}user/verifyUpdateEmail');
+    var uri = Uri.https(EndPoint.value, 'api/user/verifyUpdateEmail');
     int id = auth.id;
     String apiToken = auth.api_token;
     var request = http.MultipartRequest('POST', uri);
@@ -66,7 +66,7 @@ class UserController {
     request.fields['phone_number'] = user.phone_number.toString();
     request.fields['address'] = user.address.toString();
     request.fields['email'] = user.email.toString();
-    request.headers['Authorization'] = 'bearer $apiToken';
+    request.fields['Authorization'] = 'bearer $apiToken';
     var hasil = await request.send();
 
     http.Response response = await http.Response.fromStream(hasil);
