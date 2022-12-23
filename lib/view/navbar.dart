@@ -32,7 +32,7 @@ class NavBar extends StatelessWidget {
           child: Card(
             elevation: 3.0,
             child: Material(
-              color: Colors.green,
+              color: Color(0xff42b549),
               child: Center(
                 child: Text(
                   'Tokopedia',

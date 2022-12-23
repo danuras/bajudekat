@@ -45,7 +45,9 @@ class Home extends StatelessWidget {
           child: SizedBox(
             height: 286,
             width: MediaQuery.of(context).size.width,
+            // diskon
             child: Card(
+              color: Color(0xff8d9de8),
               elevation: 3.0,
               child: Column(
                 children: [
@@ -55,19 +57,22 @@ class Home extends StatelessWidget {
                       right: 8.0,
                       top: 8.0,
                     ),
+                    // text discount
                     child: Row(
                       children: [
                         Text(
                           'Discount',
                           style: TextStyle(
-                            fontFamily: 'cursive',
+                            fontFamily: 'arial',
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
+                            color: Colors.white
                           ),
                         ),
                         Spacer(),
+                        // button view all
                         Material(
-                          color: Colors.green,
+                          color: Color(0xff737fb3),
                           child: InkWell(
                             onTap: () {
                               Navigator.of(context).pushReplacement(
@@ -103,7 +108,7 @@ class Home extends StatelessWidget {
                               child: Text(
                                 'View All',
                                 style: TextStyle(
-                                  fontFamily: 'cursive',
+                                  fontFamily: 'arial',
                                   fontSize: 16,
                                   color: Colors.white,
                                 ),
@@ -175,10 +180,13 @@ class Home extends StatelessWidget {
     );
   }
 
+  // main product
   Widget buildBody(BuildContext context) {
     return SizedBox(
       width: double.infinity * 2 / 3,
+      // all product
       child: Card(
+        color: Color(0xff8d9de8),
         elevation: 3.0,
         child: Column(
           children: [
@@ -193,14 +201,15 @@ class Home extends StatelessWidget {
                   Text(
                     'All Product',
                     style: TextStyle(
-                      fontFamily: 'cursive',
+                      fontFamily: 'arial',
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
+                      color: Colors.white
                     ),
                   ),
                   Spacer(),
                   Material(
-                    color: Colors.green,
+                    color: Color(0xff737fb3),
                     child: InkWell(
                       onTap: () {
                         Navigator.of(context).pushReplacement(
@@ -236,7 +245,7 @@ class Home extends StatelessWidget {
                         child: Text(
                           'View All',
                           style: TextStyle(
-                            fontFamily: 'cursive',
+                            fontFamily: 'arial',
                             fontSize: 16,
                             color: Colors.white,
                           ),

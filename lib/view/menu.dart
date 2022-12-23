@@ -543,8 +543,9 @@ class _MenuState extends State<Menu> {
     return Scaffold(
       drawer: _buildDrawer(),
       appBar: AppBar(
+        backgroundColor: Color(0xff8d9de8),
         automaticallyImplyLeading: MediaQuery.of(context).size.width < 1110,
-        title: Text('Taman Butik'),
+        title: Image.asset('assets/logo-ori.png', height: 30,),
         actions: ((MediaQuery.of(context).size.width > 1110)
                 ? _listOfBar
                 : [SizedBox(), Text('')]) +
