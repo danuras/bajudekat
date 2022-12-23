@@ -89,10 +89,8 @@ class _LoginState extends State<Login> {
                               style: const TextStyle(color: Colors.black),
                               decoration: const InputDecoration(
                                 labelText: "Email",
-                                labelStyle: TextStyle(color: Colors.black),
                                 prefixIcon: Icon(
                                   Icons.email_outlined,
-                                  color: Colors.black,
                                 ),
                               ),
                               validator: (value) {
@@ -113,9 +111,7 @@ class _LoginState extends State<Login> {
                               style: const TextStyle(color: Colors.black),
                               decoration: InputDecoration(
                                 labelText: "Password",
-                                labelStyle: const TextStyle(color: Colors.black),
                                 prefixIcon: const Icon(Icons.lock_outline, 
-                                color: Colors.black,
                                 ),
                                 suffixIcon: IconButton(
                                   onPressed: () {
