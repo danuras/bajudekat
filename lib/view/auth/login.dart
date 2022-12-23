@@ -43,6 +43,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      // background login
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: const Color(0xaa000000),
@@ -54,90 +55,112 @@ class _LoginState extends State<Login> {
               width: 350,
               child: Stack(
                 children: [
+                  // card login
                   Card(
-                    color: Colors.white,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20),
-                      ),
-                    ),
+                    elevation: 20.0,
+                    color: const Color(0xff8d9de8),
+                    shape: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20),
+                        ),
+                        borderSide:
+                            BorderSide(color: Colors.black, width: 3.0)),
                     child: Form(
                       key: _formKey,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          // text login
                           const Text(
-                            "Login",
+                            "Masuk",
                             style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                            ),
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
                           ),
                           const SizedBox(
-                            height: 100,
+                            height: 50,
                           ),
-                          TextFormField(
-                            controller: _email,
-                            decoration: const InputDecoration(
-                              labelText: "Email",
-                              prefixIcon: Icon(Icons.email_outlined),
-                              fillColor: Colors.grey,
+                          // email
+                          Padding(
+                            padding:
+                                const EdgeInsets.fromLTRB(20.0, 0, 20.0, 0),
+                            child: TextFormField(
+                              controller: _email,
+                              decoration: const InputDecoration(
+                                labelText: "Email",
+                                prefixIcon: Icon(Icons.email_outlined),
+                                fillColor: Colors.white,
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Email tidak boleh kosong';
+                                }
+                                return null;
+                              },
                             ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Email tidak boleh kosong';
-                              }
-                              return null;
-                            },
                           ),
-                          TextFormField(
-                            controller: _password,
-                            obscureText: _isObsecure,
-                            decoration: InputDecoration(
-                              labelText: "Password",
-                              prefixIcon: const Icon(Icons.lock_outline),
-                              suffixIcon: IconButton(
+                          // password
+                          Padding(
+                            padding:
+                                const EdgeInsets.fromLTRB(20.0, 0, 20.0, 0),
+                            child: TextFormField(
+                              controller: _password,
+                              obscureText: _isObsecure,
+                              decoration: InputDecoration(
+                                labelText: "Password",
+                                prefixIcon: const Icon(Icons.lock_outline),
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    _isObsecure = !_isObsecure;
+                                    setState(() {});
+                                  },
+                                  icon: Icon(
+                                    _isObsecure
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                  ),
+                                ),
+                                fillColor: Colors.white,
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Password tidak boleh kosong';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          // lupa password
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 5, 15.0, 5),
+                            child: Align(
+                              alignment: const Alignment(1, 0),
+                              child: TextButton(
                                 onPressed: () {
-                                  _isObsecure = !_isObsecure;
-                                  setState(() {});
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => EnterEmail(
+                                        widget._auth,
+                                        widget._isAdmin,
+                                        widget._admin,
+                                        widget._gp,
+                                        widget._lopc,
+                                        widget._info,
+                                      ),
+                                    ),
+                                  );
                                 },
-                                icon: Icon(
-                                  _isObsecure
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
+                                child: const Text(
+                                  'Lupa Password',
+                                  style: TextStyle(color: Colors.white),
                                 ),
                               ),
-                              fillColor: Colors.grey,
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Password tidak boleh kosong';
-                              }
-                              return null;
-                            },
-                          ),
-                          Align(
-                            alignment: const Alignment(1, 0),
-                            child: TextButton(
-                              onPressed: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => EnterEmail(
-                                      widget._auth,
-                                      widget._isAdmin,
-                                      widget._admin,
-                                      widget._gp,
-                                      widget._lopc,
-                                      widget._info,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: const Text('Lupa Password'),
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
+                            // button masuk
                             child: TabletButton(
                               action: () async {
                                 if (_formKey.currentState!.validate()) {
@@ -223,38 +246,51 @@ class _LoginState extends State<Login> {
                                   }
                                 }
                               },
-                              text: 'Login',
+                              text: 'Masuk',
                             ),
                           ),
+                          // atau
                           const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text(
-                              'or',
+                              'atau',
                               style: TextStyle(
                                 fontSize: 16,
-                                color: Colors.grey,
+                                color: Colors.white,
                               ),
                             ),
                           ),
+                          // button daftar
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: TabletButton(
-                              text: 'Register',
-                              action: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => Register(
-                                      widget._isAdmin,
-                                      widget._admin,
-                                      widget._gp,
-                                      widget._lopc,
-                                      widget._info,
-                                    ),
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                                height: 50,
+                                width: 200,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color(0xff737fb3),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10))),
+                                  child: const Text(
+                                    'Daftar',
+                                    style: TextStyle(fontSize: 20),
                                   ),
-                                );
-                              },
-                            ),
-                          ),
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => Register(
+                                          widget._isAdmin,
+                                          widget._admin,
+                                          widget._gp,
+                                          widget._lopc,
+                                          widget._info,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              )),
                         ],
                       ),
                     ),
