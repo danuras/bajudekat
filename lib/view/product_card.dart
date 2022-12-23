@@ -33,7 +33,7 @@ class ProductCard extends StatelessWidget {
       newPrice =
           _product.sell_price - _product.sell_price * (_product.discount / 100);
     }
-    return FractionallySizedBox(
+    return Card(
       child: InkWell(
         hoverColor: Colors.transparent,
         onTap: () async {
