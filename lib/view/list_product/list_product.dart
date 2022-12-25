@@ -127,14 +127,14 @@ class ListProduct extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  (count != 0)
+                  (count > 0)
                       ? Container(
                           color: Colors.blue,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: InkWell(
                               onTap: () async {
-                                if (count != 0) {
+                                if (count > 0) {
                                   List<Product> _lopn;
                                   if (title == 'All Product') {
                                     count -= 24;
@@ -194,14 +194,14 @@ class ListProduct extends StatelessWidget {
                           ),
                         ),
                   SizedBox(width: 40),
-                  ((count + 1) * 24 < _lol)
+                  ((count + 24) < _lol)
                       ? Container(
                           color: Colors.blue,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: InkWell(
                               onTap: () async {
-                                if ((count + 1) * 24 < _lol) {
+                                if ((count + 24) < _lol) {
                                   List<Product> _lopn;
                                   if (title == 'All Product') {
                                     count += 24;

@@ -205,87 +205,95 @@ class _EditProfileState extends State<EditProfile> {
                             padding: const EdgeInsets.all(8.0),
                             child: TabletButton(
                               action: () async {
-                                if (_formKey.currentState!.validate()) {
-                                  widget._user.email = _email.text;
-                                  widget._user.name = _name.text;
-                                  widget._user.phone_number =
-                                      _phone_number.text;
-                                  widget._user.address = _address.text;
-                                  widget._user.city = cityId;
-                                  UserController _uc = UserController();
-                                  var response = await _uc.update(
-                                    widget._auth,
-                                    widget._user,
-                                  );
-                                  var result = jsonDecode(response.body);
-
-                                  if (response.statusCode == 200) {
-                                    if (!mounted) {
-                                      return;
-                                    }
-
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          result['message'].toString(),
-                                        ),
-                                      ),
+                                try {
+                                  if (_formKey.currentState!.validate()) {
+                                    widget._user.email = _email.text;
+                                    widget._user.name = _name.text;
+                                    widget._user.phone_number =
+                                        _phone_number.text;
+                                    widget._user.address = _address.text;
+                                    widget._user.city = cityId;
+                                    UserController _uc = UserController();
+                                    var response = await _uc.update(
+                                      widget._auth,
+                                      widget._user,
                                     );
+                                    var result = jsonDecode(response.body);
 
-                                    Navigator.of(context).pushAndRemoveUntil(
-                                      MaterialPageRoute<void>(
-                                        builder: (BuildContext context) => Menu(
-                                          Profile(
-                                            widget._user,
+                                    if (response.statusCode == 200) {
+                                      if (!mounted) {
+                                        return;
+                                      }
+
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            result['message'].toString(),
+                                          ),
+                                        ),
+                                      );
+
+                                      Navigator.of(context).pushAndRemoveUntil(
+                                        MaterialPageRoute<void>(
+                                          builder: (BuildContext context) =>
+                                              Menu(
+                                            Profile(
+                                              widget._user,
+                                              widget._auth,
+                                              widget._isAdmin,
+                                              widget._isAuth,
+                                              widget._admin,
+                                              widget._gp,
+                                              widget._lopc,
+                                              widget._info,
+                                            ),
+                                            false,
                                             widget._auth,
                                             widget._isAdmin,
-                                            widget._isAuth,
                                             widget._admin,
                                             widget._gp,
                                             widget._lopc,
                                             widget._info,
                                           ),
-                                          false,
-                                          widget._auth,
-                                          widget._isAdmin,
-                                          widget._admin,
-                                          widget._gp,
-                                          widget._lopc,
-                                          widget._info,
                                         ),
-                                      ),
-                                      ModalRoute.withName('/'),
-                                    );
-                                  } else if (response.statusCode == 300) {
-                                    if (!mounted) {
-                                      return;
+                                        ModalRoute.withName('/'),
+                                      );
+                                    } else if (response.statusCode == 350) {
+                                      if (!mounted) {
+                                        return;
+                                      }
+
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              EnterCode(
+                                            widget._user.email,
+                                            widget._auth,
+                                            widget._isAdmin,
+                                            widget._admin,
+                                            widget._gp,
+                                            widget._lopc,
+                                            widget._info,
+                                          ),
+                                        ),
+                                      );
+                                    } else {
+                                      if (!mounted) {
+                                        return;
+                                      }
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            result['message'].toString(),
+                                          ),
+                                        ),
+                                      );
                                     }
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            EnterCode(
-                                          widget._user.email,
-                                          widget._auth,
-                                          widget._isAdmin,
-                                          widget._admin,
-                                          widget._gp,
-                                          widget._lopc,
-                                          widget._info,
-                                        ),
-                                      ),
-                                    );
-                                  } else {
-                                    if (!mounted) {
-                                      return;
-                                    }
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          result['message'].toString(),
-                                        ),
-                                      ),
-                                    );
                                   }
+                                } catch (e) {
+                                  print(e.toString());
                                 }
                               },
                               text: 'Submit',

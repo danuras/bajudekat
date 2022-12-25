@@ -40,7 +40,14 @@ class _UpdateProductState extends State<UpdateProduct> {
       TextEditingController(text: DateTime.now().toString());
 
   bool _isObsecure = true;
-  var _image_url;
+  var _image_url = [
+    PlatformFile(
+      path: 'assets/default_product.png',
+      name: 'none',
+      size: 0,
+      bytes: Uint8List(0),
+    )
+  ];
   File _image = File('assets/default_product.png');
 
   final _formKey = GlobalKey<FormState>();
@@ -110,7 +117,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                                   borderRadius: const BorderRadius.all(
                                     Radius.circular(50),
                                   ),
-                                  image: (_image_url == null)
+                                  image: (_image_url.first.name == 'none')
                                       ? DecorationImage(
                                           image: NetworkImage(
                                             widget._product.image_url,
@@ -118,7 +125,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                                         )
                                       : DecorationImage(
                                           image: MemoryImage(
-                                            _image_url.first.bytes,
+                                            _image_url.first.bytes!,
                                           ),
                                         ),
                                   color: Colors.black,
@@ -138,8 +145,8 @@ class _UpdateProductState extends State<UpdateProduct> {
                                             (FilePickerStatus status) =>
                                                 print(status),
                                         type: FileType.custom,
-                                      ))
-                                              ?.files;
+                                      ))!
+                                              .files;
                                     } on PlatformException catch (e) {
                                       print('Unsupported ooperation' +
                                           e.toString());
@@ -348,58 +355,66 @@ class _UpdateProductState extends State<UpdateProduct> {
                               padding: const EdgeInsets.all(8.0),
                               child: TabletButton(
                                 action: () async {
-                                  if (_formKey.currentState!.validate()) {
-                                    Product _product = Product.fromJson({
-                                      'name': _name.text,
-                                      'categories_name': _categories_name.text,
-                                      'description': _description.text,
-                                      'buy_price': _buy_price.text,
-                                      'sell_price': _sell_price.text,
-                                      'currency': _currency.text,
-                                      'stock': _stock.text,
-                                      'weight': _weight.text,
-                                      'discount': _discount.text,
-                                      'discount_expired_at':
-                                          _discount_expired_at.text,
-                                    });
-                                    ProductController _pc = ProductController();
-                                    var response = await _pc.update(
-                                      widget._admin,
-                                      _product,
-                                      widget._product.id,
-                                      _image_url.first.bytes,
-                                      _image_url.first.name,
-                                    );
-                                    var result = jsonDecode(response.body);
+                                  try {
+                                    if (_formKey.currentState!.validate()) {
+                                      Product _product = Product.fromJson({
+                                        'name': _name.text,
+                                        'categories_name':
+                                            _categories_name.text,
+                                        'description': _description.text,
+                                        'buy_price': _buy_price.text,
+                                        'sell_price': _sell_price.text,
+                                        'currency': _currency.text,
+                                        'stock': _stock.text,
+                                        'weight': _weight.text,
+                                        'discount': _discount.text,
+                                        'discount_expired_at':
+                                            _discount_expired_at.text,
+                                      });
+                                      ProductController _pc =
+                                          ProductController();
 
-                                    if (response.statusCode == 200) {
-                                      if (!mounted) {
-                                        return;
-                                      }
-
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            result['message'].toString(),
-                                          ),
-                                        ),
+                                      print('lol');
+                                      var response = await _pc.update(
+                                        widget._admin,
+                                        _product,
+                                        widget._product.id,
+                                        _image_url.first.bytes!,
+                                        _image_url.first.name,
                                       );
+                                      var result = jsonDecode(response.body);
 
-                                      Navigator.of(context).pop();
-                                    } else {
-                                      if (!mounted) {
-                                        return;
-                                      }
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            result['message'].toString(),
+                                      if (response.statusCode == 200) {
+                                        if (!mounted) {
+                                          return;
+                                        }
+
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              result['message'].toString(),
+                                            ),
                                           ),
-                                        ),
-                                      );
+                                        );
+
+                                        Navigator.of(context).pop();
+                                      } else {
+                                        if (!mounted) {
+                                          return;
+                                        }
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              result['message'].toString(),
+                                            ),
+                                          ),
+                                        );
+                                      }
                                     }
+                                  } catch (e) {
+                                    print(e.toString());
                                   }
                                 },
                                 text: 'Submit',

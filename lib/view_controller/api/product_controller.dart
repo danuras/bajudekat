@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
@@ -56,6 +57,7 @@ class ProductController {
     var uri = Uri.https(EndPoint.value, 'api/admin/product/update');
     int id = admin.id;
     String apiToken = admin.api_token;
+    print('lol');
     var request = http.MultipartRequest('POST', uri);
     request.fields['id'] = id.toString();
     request.fields['name'] = product.name.toString();
@@ -71,7 +73,8 @@ class ProductController {
     request.fields['discount_expired_at'] =
         product.discount_expired_at.toString();
     request.fields['Authorization'] = 'bearer $apiToken';
-    if (image != null) {
+    if (fileName != 'none') {
+      print('lol');
       // get file length
       var multipartFile = http.MultipartFile.fromBytes(
         'image_url',
@@ -82,8 +85,11 @@ class ProductController {
       // add file to multipart
       request.files.add(multipartFile);
     }
+
+    print('lol');
     var hasil = await request.send();
 
+    print('lol');
     http.Response response = await http.Response.fromStream(hasil);
 
     return response;

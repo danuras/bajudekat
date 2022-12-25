@@ -33,36 +33,36 @@ class ProductCard extends StatelessWidget {
       newPrice =
           _product.sell_price - _product.sell_price * (_product.discount / 100);
     }
-    return Card(
-      child: InkWell(
-        hoverColor: Colors.transparent,
-        onTap: () async {
-          Product _p = await _gp.showById(_product.id, _auth.id);
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => (_isAdmin)
-                  ? AdminDetailProduct(
-                      _admin,
-                      _isAdmin,
-                      _auth,
-                      _isAuth,
-                      _gp,
-                      _p,
-                      _lopc,
-                      _info,
-                    )
-                  : DetailProduct(
-                      _p,
-                      _auth,
-                      _admin,
-                      _isAuth,
-                      _isAdmin,
-                      _gp,
-                      _info,
-                    ),
-            ),
-          );
-        },
+    return GestureDetector(
+      onTap: () async {
+        Product _p = await _gp.showById(_product.id, _auth.id);
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => (_isAdmin)
+                ? AdminDetailProduct(
+                    _admin,
+                    _isAdmin,
+                    _auth,
+                    _isAuth,
+                    _gp,
+                    _p,
+                    _lopc,
+                    _info,
+                  )
+                : DetailProduct(
+                    _p,
+                    _auth,
+                    _admin,
+                    _isAuth,
+                    _isAdmin,
+                    _gp,
+                    _info,
+                  ),
+          ),
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(7.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -1,3 +1,4 @@
+import 'package:baju_dekat/view/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 import 'package:baju_dekat/model/admin.dart';
@@ -161,13 +162,46 @@ class MenejemenProduct extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  (count != 0)
+                  (count > 0)
                       ? Container(
                           color: Colors.blue,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: InkWell(
-                              onTap: () {},
+                              onTap: () async {
+                                if (count > 0) {
+                                  List<Product> _lopn;
+                                  count -= 24;
+                                  _lopn = await _gp.getAllProduct('%%', count);
+
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      builder: ((context) => Menu(
+                                            MenejemenProduct(
+                                              title,
+                                              _admin,
+                                              _isAdmin,
+                                              _auth,
+                                              _isAuth,
+                                              _gp,
+                                              _lopn,
+                                              _lol,
+                                              count,
+                                              _lopc,
+                                              _info,
+                                            ),
+                                            _isAuth,
+                                            _auth,
+                                            _isAdmin,
+                                            _admin,
+                                            _gp,
+                                            _lopc,
+                                            _info,
+                                          )),
+                                    ),
+                                  );
+                                }
+                              },
                               child: Text(
                                 'Sebelumnya',
                                 style: TextStyle(color: Colors.white),
@@ -185,13 +219,46 @@ class MenejemenProduct extends StatelessWidget {
                           ),
                         ),
                   SizedBox(width: 40),
-                  ((count + 1) * 24 < _lol)
+                  (count + 24 < _lol)
                       ? Container(
                           color: Colors.blue,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: InkWell(
-                              onTap: () {},
+                              onTap: () async {
+                                if ((count + 24) < _lol) {
+                                  List<Product> _lopn;
+                                  count += 24;
+                                  _lopn = await _gp.getAllProduct('%%', count);
+
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      builder: ((context) => Menu(
+                                            MenejemenProduct(
+                                              title,
+                                              _admin,
+                                              _isAdmin,
+                                              _auth,
+                                              _isAuth,
+                                              _gp,
+                                              _lopn,
+                                              _lol,
+                                              count,
+                                              _lopc,
+                                              _info,
+                                            ),
+                                            _isAuth,
+                                            _auth,
+                                            _isAdmin,
+                                            _admin,
+                                            _gp,
+                                            _lopc,
+                                            _info,
+                                          )),
+                                    ),
+                                  );
+                                }
+                              },
                               child: Text(
                                 'Selanjutnya',
                                 style: TextStyle(color: Colors.white),
