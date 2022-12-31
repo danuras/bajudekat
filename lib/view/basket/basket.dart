@@ -60,18 +60,19 @@ class Basket extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffdddddd),
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Keranjang'),
+        title: const Text('Keranjang'),
+        backgroundColor: const Color(0xff8d9de8),
       ),
       body: Center(
         child: ConstrainedBox(
-          constraints: BoxConstraints(
+          constraints: const BoxConstraints(
             minWidth: 50,
             maxWidth: 1000,
           ),
           child: Padding(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             child: ListView(
               children: [
                 ResponsiveGridRow(
@@ -95,63 +96,68 @@ class Basket extends StatelessWidget {
               width: 150,
               color: Colors.blue,
               height: double.infinity,
-              child: InkWell(
-                onTap: () async {
-                  if (_lop.length > 0) {
-                    UserController uc = UserController();
-                    var response = await uc.show(_auth);
-                    if (response.statusCode == 200) {
-                      var result = jsonDecode(response.body);
-                      User user = User.fromJson(result['data'][0]);
+              child: Container(
+                color: const Color(0xff737fb3),
+                child: InkWell(
+                  onTap: () async {
+                    if (_lop.length > 0) {
+                      UserController uc = UserController();
+                      var response = await uc.show(_auth);
+                      if (response.statusCode == 200) {
+                        var result = jsonDecode(response.body);
+                        User user = User.fromJson(result['data'][0]);
 
-                      var rcity = await RajaOngkir.getCityById(
-                        user.city,
-                      );
-                      var resultcity = jsonDecode(rcity.body);
-                      Navigator.of(context).push(
-                        PageRouteBuilder(
-                          opaque: false,
-                          pageBuilder: (context, __, ___) {
-                            return Checkout(
-                              _auth,
-                              _isAuth,
-                              _isAdmin,
-                              _admin,
-                              _gp,
-                              _lopc,
-                              _info,
-                              user,
-                              resultcity['rajaongkir']['results']['city_name'],
-                              totalBerat(),
-                              totalHarga(),
-                              _lopt[0].transaction_id,
-                            );
-                          },
-                        ),
-                      );
+                        var rcity = await RajaOngkir.getCityById(
+                          user.city,
+                        );
+                        var resultcity = jsonDecode(rcity.body);
+                        Navigator.of(context).push(
+                          PageRouteBuilder(
+                            opaque: false,
+                            pageBuilder: (context, __, ___) {
+                              return Checkout(
+                                _auth,
+                                _isAuth,
+                                _isAdmin,
+                                _admin,
+                                _gp,
+                                _lopc,
+                                _info,
+                                user,
+                                resultcity['rajaongkir']['results']
+                                    ['city_name'],
+                                totalBerat(),
+                                totalHarga(),
+                                _lopt[0].transaction_id,
+                              );
+                            },
+                          ),
+                        );
+                      } else {
+                        var result = jsonDecode(response.body);
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(result['message'].toString()),
+                          ),
+                        );
+                      }
                     } else {
-                      var result = jsonDecode(response.body);
-
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(result['message'].toString()),
+                        const SnackBar(
+                          content: Text('Belum ada barang dikeranjang!'),
                         ),
                       );
                     }
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Belum ada barang dikeranjang!'),
+                  },
+                  child: const Center(
+                    child: Text(
+                      'Checkout',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold
                       ),
-                    );
-                  }
-                },
-                child: Center(
-                  child: Text(
-                    'Checkout',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
                     ),
                   ),
                 ),

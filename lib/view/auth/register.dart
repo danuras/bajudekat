@@ -100,7 +100,7 @@ class _RegisterState extends State<Register> {
                             TextFormField(
                               controller: _email,
                               decoration: const InputDecoration(
-                                labelText: "email",
+                                labelText: "Email",
                                 prefixIcon: Icon(Icons.email_outlined),
                                 fillColor: Colors.grey,
                               ),
@@ -142,7 +142,7 @@ class _RegisterState extends State<Register> {
                             TextFormField(
                               controller: _phone_number,
                               decoration: const InputDecoration(
-                                labelText: "Nomor telephon",
+                                labelText: "Nomor telepon",
                                 prefixIcon: Icon(Icons.call),
                                 fillColor: Colors.grey,
                               ),

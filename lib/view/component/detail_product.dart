@@ -49,9 +49,10 @@ class _DetailProductState extends State<DetailProduct> {
           widget._product.sell_price * (widget._product.discount / 100);
     }
     return Scaffold(
-      backgroundColor: Color(0xffdddddd),
+      backgroundColor: const Color(0xffdddddd),
       appBar: AppBar(
         title: Text(widget._product.name),
+        backgroundColor: const Color(0xff8d9de8),
       ),
       body: Center(
         child: ConstrainedBox(
@@ -60,397 +61,420 @@ class _DetailProductState extends State<DetailProduct> {
             maxWidth: 1000,
           ),
           child: Card(
-            child: ListView(
-              children: [
-                (MediaQuery.of(context).size.width > 560)
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: Image.network(
-                              widget._product.image_url,
-                              width: 250,
-                              height: 250,
+            child: Container(
+              padding: const EdgeInsets.all(5.0),
+              child: ListView(
+                children: [
+                  (MediaQuery.of(context).size.width > 560)
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 20,
                             ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  widget._product.name,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
+                            Align(
+                              alignment: Alignment.topLeft,
+                              child: Image.network(
+                                widget._product.image_url,
+                                width: 250,
+                                height: 250,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    widget._product.name,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                Text(
-                                  'stok: ' + widget._product.stock.toString(),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                Text(
-                                  'Rp ' + widget._product.sell_price.toString(),
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    decoration: (isDiscount)
-                                        ? TextDecoration.lineThrough
-                                        : TextDecoration.none,
+                                  Text(
+                                    'stok: ' + widget._product.stock.toString(),
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                ),
-                                (isDiscount)
-                                    ? Text(
-                                        'Rp ' + (newPrice).toString(),
-                                        overflow: TextOverflow.ellipsis,
-                                      )
-                                    : SizedBox(),
-                                Text(
-                                  'berat: ' + widget._product.weight.toString(),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                SizedBox(height: 80),
-                                (!widget._product.isBasket)
-                                    ? Align(
-                                        alignment: Alignment(0.8, 1),
-                                        child: TabletButton(
-                                          action: () async {
-                                            ProductTransactionController ptc =
-                                                ProductTransactionController();
-                                            ProductTransaction
-                                                productTransaction =
-                                                ProductTransaction.fromJson({
-                                              'buy_price':
-                                                  widget._product.buy_price,
-                                              'sell_price':
-                                                  widget._product.sell_price,
-                                              'currency':
-                                                  widget._product.currency,
-                                              'weight': widget._product.weight,
-                                              'amount': amount,
-                                              'product_id': widget._product.id,
-                                            });
+                                  Text(
+                                    'Rp ' +
+                                        widget._product.sell_price.toString(),
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      decoration: (isDiscount)
+                                          ? TextDecoration.lineThrough
+                                          : TextDecoration.none,
+                                    ),
+                                  ),
+                                  (isDiscount)
+                                      ? Text(
+                                          'Rp ' + (newPrice).toString(),
+                                          overflow: TextOverflow.ellipsis,
+                                        )
+                                      : SizedBox(),
+                                  Text(
+                                    'berat: ' +
+                                        widget._product.weight.toString(),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  SizedBox(height: 80),
+                                  (!widget._product.isBasket)
+                                      ? Align(
+                                          alignment: Alignment(0.8, 1),
+                                          child: TabletButton(
+                                            action: () async {
+                                              ProductTransactionController ptc =
+                                                  ProductTransactionController();
+                                              ProductTransaction
+                                                  productTransaction =
+                                                  ProductTransaction.fromJson({
+                                                'buy_price':
+                                                    widget._product.buy_price,
+                                                'sell_price':
+                                                    widget._product.sell_price,
+                                                'currency':
+                                                    widget._product.currency,
+                                                'weight':
+                                                    widget._product.weight,
+                                                'amount': amount,
+                                                'product_id':
+                                                    widget._product.id,
+                                              });
 
-                                            var response = await ptc.create(
-                                                widget.auth,
-                                                productTransaction);
-                                            if (response.statusCode == 200) {
-                                              Navigator.of(context).pop();
-                                            } else if (response.statusCode ==
-                                                350) {
-                                              UserController uc =
-                                                  UserController();
-                                              var response =
-                                                  await uc.show(widget.auth);
+                                              var response = await ptc.create(
+                                                  widget.auth,
+                                                  productTransaction);
+                                              if (response.statusCode == 200) {
+                                                Navigator.of(context).pop();
+                                              } else if (response.statusCode ==
+                                                  350) {
+                                                UserController uc =
+                                                    UserController();
+                                                var response =
+                                                    await uc.show(widget.auth);
 
-                                              var result =
-                                                  jsonDecode(response.body);
-                                              User user =
-                                                  User.fromJson(result['data']);
+                                                var result =
+                                                    jsonDecode(response.body);
+                                                User user = User.fromJson(
+                                                    result['data']);
 
-                                              GetCategory _gc = GetCategory(
-                                                  ProductCategoryController());
-                                              List<ProductCategories> _lopc =
-                                                  await _gc.showAll();
-                                              if (!mounted) {
-                                                return;
-                                              }
-                                              Navigator.of(context).push(
-                                                PageRouteBuilder(
-                                                  opaque: false,
-                                                  pageBuilder:
-                                                      (context, __, ___) =>
-                                                          EnterCode(
-                                                    user.email,
-                                                    widget.auth,
-                                                    widget._isAdmin,
-                                                    widget.admin,
-                                                    widget._gp,
-                                                    _lopc,
-                                                    widget._info,
+                                                GetCategory _gc = GetCategory(
+                                                    ProductCategoryController());
+                                                List<ProductCategories> _lopc =
+                                                    await _gc.showAll();
+                                                if (!mounted) {
+                                                  return;
+                                                }
+                                                Navigator.of(context).push(
+                                                  PageRouteBuilder(
+                                                    opaque: false,
+                                                    pageBuilder:
+                                                        (context, __, ___) =>
+                                                            EnterCode(
+                                                      user.email,
+                                                      widget.auth,
+                                                      widget._isAdmin,
+                                                      widget.admin,
+                                                      widget._gp,
+                                                      _lopc,
+                                                      widget._info,
+                                                    ),
                                                   ),
-                                                ),
-                                              );
-                                            } else {
-                                              if (!mounted) {
-                                                return;
-                                              }
-                                              var result =
-                                                  jsonDecode(response.body);
+                                                );
+                                              } else {
+                                                if (!mounted) {
+                                                  return;
+                                                }
+                                                var result =
+                                                    jsonDecode(response.body);
 
-                                              GetCategory _gc = GetCategory(
-                                                  ProductCategoryController());
-                                              List<ProductCategories> _lopc =
-                                                  await _gc.showAll();
-                                              AuthController au =
-                                                  AuthController();
-                                              au.isAuth(
-                                                widget._isAuth,
-                                                widget.auth,
-                                                context,
-                                                widget._isAdmin,
-                                                widget.admin,
-                                                widget._gp,
-                                                _lopc,
-                                                widget._info,
-                                              );
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                      result['message']
-                                                          .toString()),
+                                                GetCategory _gc = GetCategory(
+                                                    ProductCategoryController());
+                                                List<ProductCategories> _lopc =
+                                                    await _gc.showAll();
+                                                AuthController au =
+                                                    AuthController();
+                                                au.isAuth(
+                                                  widget._isAuth,
+                                                  widget.auth,
+                                                  context,
+                                                  widget._isAdmin,
+                                                  widget.admin,
+                                                  widget._gp,
+                                                  _lopc,
+                                                  widget._info,
+                                                );
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                        result['message']
+                                                            .toString()),
+                                                  ),
+                                                );
+                                              }
+                                            },
+                                            text: 'Tambah ke keranjang',
+                                          ),
+                                        )
+                                      : Align(
+                                          alignment: Alignment(0.8, 1),
+                                          child: Container(
+                                            width: 200,
+                                            height: 40,
+                                            color: Colors.green,
+                                            child: Center(
+                                              child: Text(
+                                                'Di keranjang',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 18,
                                                 ),
-                                              );
-                                            }
-                                          },
-                                          text: 'Keranjang+',
-                                        ),
-                                      )
-                                    : Align(
-                                        alignment: Alignment(0.8, 1),
-                                        child: Container(
-                                          width: 200,
-                                          height: 40,
-                                          color: Colors.green,
-                                          child: Center(
-                                            child: Text(
-                                              'Dikeranjang',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 18,
                                               ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                (!widget._product.isBasket)
-                                    ? Align(
-                                        alignment: Alignment(0.8, 1),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Text('Jumlah: '),
-                                            TextButton(
-                                              onPressed: () {
-                                                if (amount > 1) {
-                                                  amount--;
-                                                  setState(() {});
-                                                }
-                                              },
-                                              child: Text('-'),
-                                            ),
-                                            Text(
-                                              amount.toString(),
-                                            ),
-                                            TextButton(
-                                              onPressed: () {
-                                                if (amount <
-                                                    widget._product.stock) {
-                                                  amount++;
-                                                  setState(() {});
-                                                }
-                                              },
-                                              child: Text('+'),
-                                            ),
-                                          ],
+                                  (!widget._product.isBasket)
+                                      ? Align(
+                                          alignment: Alignment(0.8, 1),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text('Jumlah: '),
+                                              TextButton(
+                                                onPressed: () {
+                                                  if (amount > 1) {
+                                                    amount--;
+                                                    setState(() {});
+                                                  }
+                                                },
+                                                child: const Text(
+                                                  '-',
+                                                  style: TextStyle(
+                                                      color: Color(0xff737fb3)),
+                                                ),
+                                              ),
+                                              Text(
+                                                amount.toString(),
+                                              ),
+                                              TextButton(
+                                                onPressed: () {
+                                                  if (amount <
+                                                      widget._product.stock) {
+                                                    amount++;
+                                                    setState(() {});
+                                                  }
+                                                },
+                                                child: const Text(
+                                                  '+',
+                                                  style: TextStyle(
+                                                      color: Color(0xff737fb3)),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      : SizedBox(),
+                                ],
+                              ),
+                            )
+                          ],
+                        )
+                      : Column(
+                          children: [
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Align(
+                              alignment: Alignment.center,
+                              child: Image.network(
+                                widget._product.image_url,
+                                width: 250,
+                                height: 250,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              widget._product.name,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            Text(
+                              'stok: ' + widget._product.stock.toString(),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            Text(
+                              widget._product.sell_price.toString(),
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                decoration: TextDecoration.lineThrough,
+                              ),
+                            ),
+                            Text(
+                              (widget._product.sell_price -
+                                      widget._product.discount *
+                                          widget._product.sell_price)
+                                  .toString(),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            Text(
+                              'berat: ' + widget._product.weight.toString(),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(height: 80),
+                            Align(
+                              alignment: Alignment.center,
+                              child: TabletButton(
+                                action: () async {
+                                  ProductTransactionController ptc =
+                                      ProductTransactionController();
+                                  ProductTransaction productTransaction =
+                                      ProductTransaction.fromJson({
+                                    'buy_price': widget._product.buy_price,
+                                    'sell_price': widget._product.sell_price,
+                                    'currency': widget._product.currency,
+                                    'amount': amount,
+                                    'product_id': widget._product.id,
+                                  });
+
+                                  var response = await ptc.create(
+                                      widget.auth, productTransaction);
+                                  if (response.statusCode == 200) {
+                                    Navigator.of(context).pop();
+                                  } else if (response.statusCode == 350) {
+                                    UserController uc = UserController();
+                                    var response = await uc.show(widget.auth);
+
+                                    var result = jsonDecode(response.body);
+                                    User user = User.fromJson(result['data']);
+
+                                    GetCategory _gc = GetCategory(
+                                        ProductCategoryController());
+                                    List<ProductCategories> _lopc =
+                                        await _gc.showAll();
+                                    if (!mounted) {
+                                      return;
+                                    }
+                                    Navigator.of(context).push(
+                                      PageRouteBuilder(
+                                        opaque: false,
+                                        pageBuilder: (context, __, ___) =>
+                                            EnterCode(
+                                          user.email,
+                                          widget.auth,
+                                          widget._isAdmin,
+                                          widget.admin,
+                                          widget._gp,
+                                          _lopc,
+                                          widget._info,
                                         ),
-                                      )
-                                    : SizedBox(),
-                              ],
-                            ),
-                          )
-                        ],
-                      )
-                    : Column(
-                        children: [
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: Image.network(
-                              widget._product.image_url,
-                              width: 250,
-                              height: 250,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            widget._product.name,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          Text(
-                            'stok: ' + widget._product.stock.toString(),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          Text(
-                            widget._product.sell_price.toString(),
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              decoration: TextDecoration.lineThrough,
-                            ),
-                          ),
-                          Text(
-                            (widget._product.sell_price -
-                                    widget._product.discount *
-                                        widget._product.sell_price)
-                                .toString(),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          Text(
-                            'berat: ' + widget._product.weight.toString(),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          SizedBox(height: 80),
-                          Align(
-                            alignment: Alignment.center,
-                            child: TabletButton(
-                              action: () async {
-                                ProductTransactionController ptc =
-                                    ProductTransactionController();
-                                ProductTransaction productTransaction =
-                                    ProductTransaction.fromJson({
-                                  'buy_price': widget._product.buy_price,
-                                  'sell_price': widget._product.sell_price,
-                                  'currency': widget._product.currency,
-                                  'amount': amount,
-                                  'product_id': widget._product.id,
-                                });
-
-                                var response = await ptc.create(
-                                    widget.auth, productTransaction);
-                                if (response.statusCode == 200) {
-                                  Navigator.of(context).pop();
-                                } else if (response.statusCode == 350) {
-                                  UserController uc = UserController();
-                                  var response = await uc.show(widget.auth);
-
-                                  var result = jsonDecode(response.body);
-                                  User user = User.fromJson(result['data']);
-
-                                  GetCategory _gc =
-                                      GetCategory(ProductCategoryController());
-                                  List<ProductCategories> _lopc =
-                                      await _gc.showAll();
-                                  if (!mounted) {
-                                    return;
-                                  }
-                                  Navigator.of(context).push(
-                                    PageRouteBuilder(
-                                      opaque: false,
-                                      pageBuilder: (context, __, ___) =>
-                                          EnterCode(
-                                        user.email,
-                                        widget.auth,
-                                        widget._isAdmin,
-                                        widget.admin,
-                                        widget._gp,
-                                        _lopc,
-                                        widget._info,
                                       ),
-                                    ),
-                                  );
-                                } else {
-                                  if (!mounted) {
-                                    return;
-                                  }
-                                  var result = jsonDecode(response.body);
+                                    );
+                                  } else {
+                                    if (!mounted) {
+                                      return;
+                                    }
+                                    var result = jsonDecode(response.body);
 
-                                  GetCategory _gc =
-                                      GetCategory(ProductCategoryController());
-                                  List<ProductCategories> _lopc =
-                                      await _gc.showAll();
-                                  AuthController au = AuthController();
-                                  au.isAuth(
-                                    widget._isAuth,
-                                    widget.auth,
-                                    context,
-                                    widget._isAdmin,
-                                    widget.admin,
-                                    widget._gp,
-                                    _lopc,
-                                    widget._info,
-                                  );
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content:
-                                          Text(result['message'].toString()),
+                                    GetCategory _gc = GetCategory(
+                                        ProductCategoryController());
+                                    List<ProductCategories> _lopc =
+                                        await _gc.showAll();
+                                    AuthController au = AuthController();
+                                    au.isAuth(
+                                      widget._isAuth,
+                                      widget.auth,
+                                      context,
+                                      widget._isAdmin,
+                                      widget.admin,
+                                      widget._gp,
+                                      _lopc,
+                                      widget._info,
+                                    );
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content:
+                                            Text(result['message'].toString()),
+                                      ),
+                                    );
+                                  }
+                                },
+                                text: 'Tambah ke keranjang',
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.center,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text('Jumlah: '),
+                                  TextButton(
+                                    onPressed: () {
+                                      if (amount > 1) {
+                                        amount--;
+                                        setState(() {});
+                                      }
+                                    },
+                                    child: const Text(
+                                      '-',
+                                      style:
+                                          TextStyle(color: Color(0xff737fb3)),
                                     ),
-                                  );
-                                }
-                              },
-                              text: 'Keranjang+',
+                                  ),
+                                  Text(
+                                    amount.toString(),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      if (amount < widget._product.stock) {
+                                        amount++;
+                                        setState(() {});
+                                      }
+                                    },
+                                    child: const Text(
+                                      '+',
+                                      style:
+                                          TextStyle(color: Color(0xff737fb3)),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('Jumlah: '),
-                                TextButton(
-                                  onPressed: () {
-                                    if (amount > 1) {
-                                      amount--;
-                                      setState(() {});
-                                    }
-                                  },
-                                  child: Text('-'),
-                                ),
-                                Text(
-                                  amount.toString(),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    if (amount < widget._product.stock) {
-                                      amount++;
-                                      setState(() {});
-                                    }
-                                  },
-                                  child: Text('+'),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                SizedBox(height: 30),
-                Divider(),
-                SizedBox(height: 30),
-                Padding(
-                  padding: const EdgeInsets.only(left: 30.0),
-                  child: Text(
-                    'Deskripsi',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                Expanded(
-                  child: Padding(
+                          ],
+                        ),
+                  SizedBox(height: 30),
+                  Divider(),
+                  SizedBox(height: 30),
+                  Padding(
                     padding: const EdgeInsets.only(left: 30.0),
                     child: Text(
-                      widget._product.description,
+                      'Deskripsi',
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                ),
-              ],
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 30.0),
+                      child: Text(
+                        widget._product.description,
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

@@ -119,12 +119,17 @@ class _AboutState extends State<About> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      SizedBox(
-                        width: 20,
+                      const SizedBox(
+                        width: 10,
+                        height: 3,
                       ),
                       (!widget._isAdmin)
-                          ? TabletButton(
-                              action: () async {
+                          ? ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.grey,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10))),
+                              onPressed: () async {
                                 Navigator.of(context).push(
                                   PageRouteBuilder(
                                     opaque: false,
@@ -141,7 +146,7 @@ class _AboutState extends State<About> {
                                   ),
                                 );
                               },
-                              text: 'Login Admin',
+                              child: const Text('Login Admin'),
                             )
                           : TabletButton(
                               action: () => showDialog<String>(
@@ -230,7 +235,7 @@ class _AboutState extends State<About> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Description',
+              'Tentang Kami',
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
@@ -249,7 +254,7 @@ class _AboutState extends State<About> {
               height: 20,
             ),
             Text(
-              'Address',
+              'Alamat',
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
