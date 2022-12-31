@@ -11,7 +11,7 @@ class TabletButton extends StatelessWidget {
       width: 200,
       height: 40,
       decoration: const BoxDecoration(
-        color: Colors.blue,
+        color: Color(0xff737fb3),
       ),
       child: InkWell(
         onTap: () {

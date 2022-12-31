@@ -83,7 +83,7 @@ class _CheckoutState extends State<Checkout> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SizedBox(
-              height: 500,
+              height: 550,
               width: 350,
               child: Stack(
                 children: [
@@ -101,7 +101,7 @@ class _CheckoutState extends State<Checkout> {
                         child: ListView(
                           children: [
                             const SizedBox(
-                              height: 50,
+                              height: 30,
                             ),
                             const Center(
                               child: Text(
@@ -116,6 +116,7 @@ class _CheckoutState extends State<Checkout> {
                               height: 50,
                             ),
                             Container(
+                              padding: const EdgeInsets.all(5.0),
                               decoration: BoxDecoration(
                                 border: Border.all(width: 1.0),
                                 borderRadius: BorderRadius.all(
@@ -297,129 +298,143 @@ class _CheckoutState extends State<Checkout> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: TabletButton(
-                                action: () async {
-                                  if (_formKey.currentState!.validate()) {
-                                    if (ongkos != -1) {
-                                      Transaction transaction =
-                                          Transaction.fromJson({
-                                        'id': widget._ti,
-                                        'cust_id': widget._auth.id,
-                                        'address': widget._user.address,
-                                        'kurir': kurir,
-                                        'total': widget._th,
-                                        'ongkos': ongkos,
-                                      });
-                                      TransactionController tc =
-                                          TransactionController();
-                                      ProductTransactionController ptc =
-                                          ProductTransactionController();
-                                      var responsep =
-                                          await ptc.showBasket(widget._auth);
-                                      var response = await tc.updateStatusPesan(
-                                          widget._auth, transaction);
-                                      var result = jsonDecode(response.body);
-                                      if (response.statusCode == 200) {
-                                        GetCategory _gc = GetCategory(
-                                            ProductCategoryController());
-                                        List<ProductCategories> _lopc =
-                                            await _gc.showAll();
-                                        List<Product> lop = [];
-                                        List<ProductTransaction> lopt = [];
-                                        if (responsep.statusCode == 200) {
-                                          var resultp =
-                                              jsonDecode(responsep.body);
-                                          int length = resultp['data'].length;
-                                          for (int i = 0; i < length; i++) {
-                                            lop.add(Product.fromJson({
-                                              'image_url': resultp['data'][i]
-                                                  ['image_url'],
-                                              'name': resultp['data'][i]
-                                                  ['name'],
-                                              'discount': resultp['data'][i]
-                                                  ['discount'],
-                                              'discount_expired_at':
-                                                  resultp['data'][i]
-                                                      ['discount_expired_at'],
-                                            }));
-                                            lopt.add(
-                                                ProductTransaction.fromJson({
-                                              'id': resultp['data'][i]['id'],
-                                              'sell_price': double.parse(
-                                                  resultp['data'][i]
-                                                      ['sell_price']),
-                                              'currrency': resultp['data'][i]
-                                                  ['currrency'],
-                                              'amount': resultp['data'][i]
-                                                  ['amount'],
-                                              'product_id': resultp['data'][i]
-                                                  ['product_id'],
-                                              'transaction_id': resultp['data']
-                                                  [i]['transaction_id'],
-                                              'weight': double.parse(
-                                                  resultp['data'][i]['weight']
-                                                      .toString()),
-                                            }));
+                              child: Container(
+                                height: 50,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color(0xff737fb3),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10))),
+                                  onPressed: () async {
+                                    if (_formKey.currentState!.validate()) {
+                                      if (ongkos != -1) {
+                                        Transaction transaction =
+                                            Transaction.fromJson({
+                                          'id': widget._ti,
+                                          'cust_id': widget._auth.id,
+                                          'address': widget._user.address,
+                                          'kurir': kurir,
+                                          'total': widget._th,
+                                          'ongkos': ongkos,
+                                        });
+                                        TransactionController tc =
+                                            TransactionController();
+                                        ProductTransactionController ptc =
+                                            ProductTransactionController();
+                                        var responsep =
+                                            await ptc.showBasket(widget._auth);
+                                        var response =
+                                            await tc.updateStatusPesan(
+                                                widget._auth, transaction);
+                                        var result = jsonDecode(response.body);
+                                        if (response.statusCode == 200) {
+                                          GetCategory _gc = GetCategory(
+                                              ProductCategoryController());
+                                          List<ProductCategories> _lopc =
+                                              await _gc.showAll();
+                                          List<Product> lop = [];
+                                          List<ProductTransaction> lopt = [];
+                                          if (responsep.statusCode == 200) {
+                                            var resultp =
+                                                jsonDecode(responsep.body);
+                                            int length = resultp['data'].length;
+                                            for (int i = 0; i < length; i++) {
+                                              lop.add(Product.fromJson({
+                                                'image_url': resultp['data'][i]
+                                                    ['image_url'],
+                                                'name': resultp['data'][i]
+                                                    ['name'],
+                                                'discount': resultp['data'][i]
+                                                    ['discount'],
+                                                'discount_expired_at':
+                                                    resultp['data'][i]
+                                                        ['discount_expired_at'],
+                                              }));
+                                              lopt.add(
+                                                  ProductTransaction.fromJson({
+                                                'id': resultp['data'][i]['id'],
+                                                'sell_price': double.parse(
+                                                    resultp['data'][i]
+                                                        ['sell_price']),
+                                                'currrency': resultp['data'][i]
+                                                    ['currrency'],
+                                                'amount': resultp['data'][i]
+                                                    ['amount'],
+                                                'product_id': resultp['data'][i]
+                                                    ['product_id'],
+                                                'transaction_id':
+                                                    resultp['data'][i]
+                                                        ['transaction_id'],
+                                                'weight': double.parse(
+                                                    resultp['data'][i]['weight']
+                                                        .toString()),
+                                              }));
+                                            }
                                           }
-                                        }
-                                        Navigator.of(context).pushReplacement(
-                                          MaterialPageRoute(
-                                            builder: ((context) => Menu(
-                                                  Selesai(
-                                                    widget._auth,
-                                                    widget._admin,
+                                          Navigator.of(context).pushReplacement(
+                                            MaterialPageRoute(
+                                              builder: ((context) => Menu(
+                                                    Selesai(
+                                                      widget._auth,
+                                                      widget._admin,
+                                                      widget._isAuth,
+                                                      widget._isAdmin,
+                                                      widget._gp,
+                                                      lop,
+                                                      lopt,
+                                                      widget._lopc,
+                                                      widget._info,
+                                                      transaction,
+                                                      ongkos,
+                                                      false,
+                                                    ),
                                                     widget._isAuth,
+                                                    widget._auth,
                                                     widget._isAdmin,
+                                                    widget._admin,
                                                     widget._gp,
-                                                    lop,
-                                                    lopt,
                                                     widget._lopc,
                                                     widget._info,
-                                                    transaction,
-                                                    ongkos,
-                                                    false,
-                                                  ),
-                                                  widget._isAuth,
-                                                  widget._auth,
-                                                  widget._isAdmin,
-                                                  widget._admin,
-                                                  widget._gp,
-                                                  widget._lopc,
-                                                  widget._info,
-                                                )),
-                                          ),
-                                        );
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              result['message'].toString(),
+                                                  )),
                                             ),
-                                          ),
-                                        );
+                                          );
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                result['message'].toString(),
+                                              ),
+                                            ),
+                                          );
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                result['message'].toString(),
+                                              ),
+                                            ),
+                                          );
+                                        }
                                       } else {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           SnackBar(
                                             content: Text(
-                                              result['message'].toString(),
+                                              'Kurir belum dipilih',
                                             ),
                                           ),
                                         );
                                       }
-                                    } else {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'Kurir belum dipilih',
-                                          ),
-                                        ),
-                                      );
                                     }
-                                  }
-                                },
-                                text: 'Pembayaran',
+                                  },
+                                  child: const Text(
+                                    'Pembayaran', 
+                                    style: TextStyle(
+                                      fontSize: 20
+                                    ),),
+                                ),
                               ),
                             ),
                           ],

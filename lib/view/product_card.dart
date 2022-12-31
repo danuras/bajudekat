@@ -33,60 +33,67 @@ class ProductCard extends StatelessWidget {
       newPrice =
           _product.sell_price - _product.sell_price * (_product.discount / 100);
     }
-    return GestureDetector(
-      onTap: () async {
-        Product _p = await _gp.showById(_product.id, _auth.id);
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => (_isAdmin)
-                ? AdminDetailProduct(
-                    _admin,
-                    _isAdmin,
-                    _auth,
-                    _isAuth,
-                    _gp,
-                    _p,
-                    _lopc,
-                    _info,
-                  )
-                : DetailProduct(
-                    _p,
-                    _auth,
-                    _admin,
-                    _isAuth,
-                    _isAdmin,
-                    _gp,
-                    _info,
-                  ),
-          ),
-        );
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(7.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Image.network(
-                _product.image_url,
-                width: 144,
-                height: 144,
+    return Card(
+      shape: const RoundedRectangleBorder(
+          side: BorderSide(color: Colors.white, width: 2.0)),
+      color: const Color(0xff8d9de8),
+      child: Container(
+        height: 230,
+        padding: const EdgeInsets.all(5.0),
+        child: InkWell(
+          hoverColor: const Color(0xff737fb3),
+          onTap: () async {
+            Product _p = await _gp.showById(_product.id, _auth.id);
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => (_isAdmin)
+                    ? AdminDetailProduct(
+                        _admin,
+                        _isAdmin,
+                        _auth,
+                        _isAuth,
+                        _gp,
+                        _p,
+                        _lopc,
+                        _info,
+                      )
+                    : DetailProduct(
+                        _p,
+                        _auth,
+                        _admin,
+                        _isAuth,
+                        _isAdmin,
+                        _gp,
+                        _info,
+                      ),
               ),
-            ),
-            Text(_product.name),
-            Text(
-              'Rp ' + _product.sell_price.toString(),
-              style: TextStyle(
-                  decoration: (_isDiscount)
-                      ? TextDecoration.lineThrough
-                      : TextDecoration.none),
-            ),
-            (_isDiscount)
-                ? Text(
-                    'Rp ' + newPrice.toString(),
-                  )
-                : SizedBox(),
-          ],
+            );
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Image.network(
+                  _product.image_url,
+                  width: 144,
+                  height: 144,
+                ),
+              ),
+              Text(_product.name),
+              Text(
+                'Rp ' + _product.sell_price.toString(),
+                style: TextStyle(
+                    decoration: (_isDiscount)
+                        ? TextDecoration.lineThrough
+                        : TextDecoration.none),
+              ),
+              (_isDiscount)
+                  ? Text(
+                      'Rp ' + newPrice.toString(),
+                    )
+                  : SizedBox(),
+            ],
+          ),
         ),
       ),
     );

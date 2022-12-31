@@ -124,12 +124,14 @@ class _MenuState extends State<Menu> {
               }),
             ));
           },
-          child: Center(
+          child: const Center(
               child: Text(
             'Home',
             style: TextStyle(
-              fontSize: 16,
-            ),
+              fontSize: 16, 
+              color: Color(0xff737fb3),
+              fontWeight: FontWeight.bold
+              ),
           )),
         ),
       ),
@@ -213,11 +215,13 @@ class _MenuState extends State<Menu> {
               );
             }
           },
-          child: Center(
+          child: const Center(
               child: Text(
-            'Profile',
+            'Profil',
             style: TextStyle(
               fontSize: 16,
+              color: Color(0xff737fb3),
+              fontWeight: FontWeight.bold
             ),
           )),
         ),
@@ -253,11 +257,13 @@ class _MenuState extends State<Menu> {
               ),
             );
           },
-          child: Center(
+          child: const Center(
               child: Text(
             'History',
             style: TextStyle(
               fontSize: 16,
+              color: Color(0xff737fb3),
+                fontWeight: FontWeight.bold
             ),
           )),
         ),
@@ -292,11 +298,13 @@ class _MenuState extends State<Menu> {
               ),
             );
           },
-          child: Center(
+          child: const Center(
               child: Text(
-            'Contact',
+            'Kontak',
             style: TextStyle(
               fontSize: 16,
+              color: Color(0xff737fb3),
+                fontWeight: FontWeight.bold
             ),
           )),
         ),
@@ -331,11 +339,13 @@ class _MenuState extends State<Menu> {
               ),
             );
           },
-          child: Center(
+          child: const Center(
             child: Text(
-              'About',
+              'Tentang',
               style: TextStyle(
                 fontSize: 16,
+                color: Color(0xff737fb3),
+                  fontWeight: FontWeight.bold
               ),
             ),
           ),
@@ -359,11 +369,13 @@ class _MenuState extends State<Menu> {
                     ),
                   );
                 },
-                child: Center(
+                child: const Center(
                     child: Text(
-                  'Sign Up',
+                  'Daftar',
                   style: TextStyle(
                     fontSize: 16,
+                    color: Color(0xff737fb3),
+                      fontWeight: FontWeight.bold
                   ),
                 )),
               ),
@@ -389,16 +401,18 @@ class _MenuState extends State<Menu> {
                     widget._info,
                   );
                 },
-                child: Center(
+                child: const Center(
                     child: Text(
-                  'Sign In',
+                  'Masuk',
                   style: TextStyle(
                     fontSize: 16,
+                    color: Color(0xff737fb3),
+                      fontWeight: FontWeight.bold
                   ),
                 )),
               ),
             )
-          : SizedBox(),
+          : const SizedBox(),
       (widget._isAdmin)
           ? DropdownButtonHideUnderline(
               child: DropdownButton2(
@@ -543,8 +557,12 @@ class _MenuState extends State<Menu> {
     return Scaffold(
       drawer: _buildDrawer(),
       appBar: AppBar(
+        backgroundColor: Colors.white,
         automaticallyImplyLeading: MediaQuery.of(context).size.width < 1110,
-        title: Text('Taman Butik'),
+        title: Image.asset(
+          'assets/logo-ori.png',
+          height: 30,
+        ),
         actions: ((MediaQuery.of(context).size.width > 1110)
                 ? _listOfBar
                 : [SizedBox(), Text('')]) +
@@ -605,7 +623,7 @@ class _MenuState extends State<Menu> {
                   : IconButton(
                       icon: const Icon(
                         Icons.search,
-                        color: Colors.white,
+                        color: Color(0xff737fb3)
                       ),
                       onPressed: () {
                         Navigator.of(context).push(
@@ -630,7 +648,7 @@ class _MenuState extends State<Menu> {
               IconButton(
                 icon: const Icon(
                   Icons.shopping_cart_outlined,
-                  color: Colors.white,
+                  color: Color(0xff737fb3)
                 ),
                 onPressed: () async {
                   ProductTransactionController ptc =
@@ -723,8 +741,10 @@ class _MenuState extends State<Menu> {
           //di dalam listview ini terdapat beberapa widget drawable
           children: [
             ListTile(
-              leading: Icon(Icons.home),
-              title: Text("Home"),
+              leading: const Icon(Icons.home),
+              title: const Text(
+                "Home",
+              ),
               onTap: () async {
                 List<Product> _lod = await widget._gp.getDiscount(0);
                 List<Product> _lop = await widget._gp.getAllProduct('%%', 0);

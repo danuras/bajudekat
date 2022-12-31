@@ -216,7 +216,7 @@ class _HistoryState extends State<History> {
                                 Padding(
                                   padding: EdgeInsets.all(8),
                                   child: Text(
-                                    'id',
+                                    'ID',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -225,7 +225,7 @@ class _HistoryState extends State<History> {
                                 Padding(
                                   padding: EdgeInsets.all(8),
                                   child: Text(
-                                    'status',
+                                    'Status',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -234,7 +234,7 @@ class _HistoryState extends State<History> {
                                 Padding(
                                   padding: EdgeInsets.all(8),
                                   child: Text(
-                                    'tanggal',
+                                    'Tanggal',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -243,7 +243,7 @@ class _HistoryState extends State<History> {
                                 Padding(
                                   padding: EdgeInsets.all(8),
                                   child: Text(
-                                    'nomor resi',
+                                    'Nomor resi',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -252,7 +252,7 @@ class _HistoryState extends State<History> {
                                 Padding(
                                   padding: EdgeInsets.all(8),
                                   child: Text(
-                                    'detail',
+                                    'Detail',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -367,8 +367,11 @@ class _HistoryState extends State<History> {
                     ),
                   );
                 },
-                child: Text(
-                  'detail',
+                child: const Text(
+                  'Lihat detail',
+                  style: TextStyle(
+                    color: Color(0xff737fb3)
+                  ),
                 ),
               ),
             ),

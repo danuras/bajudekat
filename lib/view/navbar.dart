@@ -32,12 +32,11 @@ class NavBar extends StatelessWidget {
           child: Card(
             elevation: 3.0,
             child: Material(
-              color: Colors.green,
+              color: Color(0xff42b549),
               child: Center(
                 child: Text(
                   'Tokopedia',
                   style: TextStyle(
-                    fontFamily: 'cursive',
                     color: Colors.white,
                     fontSize: 26,
                   ),
@@ -62,13 +61,12 @@ class NavBar extends StatelessWidget {
                               height: 60,
                               alignment: Alignment(0, 0),
                               color: Colors.purple,
-                              child: Material(
-                                color: Colors.green,
+                              child: const Material(
+                                color: Color(0xff8d9de8),
                                 child: Center(
                                   child: Text(
-                                    'Social Media',
+                                    'Media Sosial',
                                     style: TextStyle(
-                                      fontFamily: 'cursive',
                                       color: Colors.white,
                                       fontSize: 26,
                                     ),
@@ -96,10 +94,9 @@ class NavBar extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                        Text(
-                          'Category',
+                        const Text(
+                          'Kategori',
                           style: TextStyle(
-                            fontFamily: 'cursive',
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),

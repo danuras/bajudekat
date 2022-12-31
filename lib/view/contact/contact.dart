@@ -110,7 +110,7 @@ class _ContactState extends State<Contact> {
             children: [
               SizedBox(height: 8),
               Text(
-                'Contact',
+                'Kontak',
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
@@ -135,7 +135,7 @@ class _ContactState extends State<Contact> {
               height: 20,
             ),
             Text(
-              'Information',
+              'Informasi',
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
@@ -202,7 +202,7 @@ class _ContactState extends State<Contact> {
                     Padding(
                       padding: EdgeInsets.all(8),
                       child: Text(
-                        'Phone Number',
+                        'Nomor HP',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),

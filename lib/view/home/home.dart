@@ -43,9 +43,11 @@ class Home extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(4.0),
           child: SizedBox(
-            height: 286,
+            height: 320,
             width: MediaQuery.of(context).size.width,
+            // diskon
             child: Card(
+              color: const Color(0xff8d9de8),
               elevation: 3.0,
               child: Column(
                 children: [
@@ -55,19 +57,21 @@ class Home extends StatelessWidget {
                       right: 8.0,
                       top: 8.0,
                     ),
+                    // text discount
                     child: Row(
                       children: [
-                        Text(
-                          'Discount',
+                        const Text(
+                          'Promo',
                           style: TextStyle(
-                            fontFamily: 'cursive',
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
+                            color: Colors.white
                           ),
                         ),
-                        Spacer(),
+                        const Spacer(),
+                        // button view all
                         Material(
-                          color: Colors.green,
+                          color: const Color(0xff737fb3),
                           child: InkWell(
                             onTap: () {
                               Navigator.of(context).pushReplacement(
@@ -98,12 +102,11 @@ class Home extends StatelessWidget {
                                 ),
                               );
                             },
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
                               child: Text(
-                                'View All',
+                                'Tampilkan semua',
                                 style: TextStyle(
-                                  fontFamily: 'cursive',
                                   fontSize: 16,
                                   color: Colors.white,
                                 ),
@@ -114,7 +117,7 @@ class Home extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Divider(),
+                  const Divider(),
                   Expanded(
                     child: ListView(
                       scrollDirection: Axis.horizontal,
@@ -175,10 +178,13 @@ class Home extends StatelessWidget {
     );
   }
 
+  // main product
   Widget buildBody(BuildContext context) {
     return SizedBox(
       width: double.infinity * 2 / 3,
+      // all product
       child: Card(
+        color: const Color(0xff8d9de8),
         elevation: 3.0,
         child: Column(
           children: [
@@ -190,17 +196,17 @@ class Home extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  Text(
-                    'All Product',
+                  const Text(
+                    'Semua Produk',
                     style: TextStyle(
-                      fontFamily: 'cursive',
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
+                      color: Colors.white
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Material(
-                    color: Colors.green,
+                    color: const Color(0xff737fb3),
                     child: InkWell(
                       onTap: () {
                         Navigator.of(context).pushReplacement(
@@ -231,12 +237,12 @@ class Home extends StatelessWidget {
                           ),
                         );
                       },
+                      // ignore: prefer_const_constructors
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'View All',
+                        child: const Text(
+                          'Tampilkan semua',
                           style: TextStyle(
-                            fontFamily: 'cursive',
                             fontSize: 16,
                             color: Colors.white,
                           ),
@@ -247,7 +253,7 @@ class Home extends StatelessWidget {
                 ],
               ),
             ),
-            Divider(),
+            const Divider(),
             ResponsiveGridRow(
               children: listOfProduct(),
             ),

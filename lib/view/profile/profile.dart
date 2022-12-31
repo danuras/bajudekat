@@ -120,7 +120,7 @@ class _ProfileState extends State<Profile> {
               ),
               SizedBox(height: 8),
               Text(
-                'id: ' + widget._user.id.toString(),
+                'ID: ' + widget._user.id.toString(),
                 style: const TextStyle(
                   fontSize: 20,
                   color: Colors.black,
@@ -140,119 +140,137 @@ class _ProfileState extends State<Profile> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      TabletButton(
-                        action: () async {
-                          var response = await RajaOngkir.getCityById(
-                            widget._user.city,
-                          );
-                          var result = jsonDecode(response.body);
-                          if (response.statusCode == 200) {
-                            if (!mounted) {
-                              return;
-                            }
-                            Navigator.of(context).push(
-                              PageRouteBuilder(
-                                opaque: false,
-                                pageBuilder: (context, __, ___) => EditProfile(
-                                  widget._user,
-                                  result['rajaongkir']['results']['city_name'],
-                                  widget.auth,
-                                  widget._isAdmin,
-                                  widget._isAuth,
-                                  widget._admin,
-                                  widget._gp,
-                                  widget._lopc,
-                                  widget._info,
-                                ),
-                              ),
+                      SizedBox(
+                        height: 40,
+                        width: 180,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xff737fb3),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                          onPressed: () async {
+                            var response = await RajaOngkir.getCityById(
+                              widget._user.city,
                             );
-                          } else {
-                            if (!mounted) {
-                              return;
-                            }
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  result['message'].toString(),
+                            var result = jsonDecode(response.body);
+                            if (response.statusCode == 200) {
+                              if (!mounted) {
+                                return;
+                              }
+                              Navigator.of(context).push(
+                                PageRouteBuilder(
+                                  opaque: false,
+                                  pageBuilder: (context, __, ___) =>
+                                      EditProfile(
+                                    widget._user,
+                                    result['rajaongkir']['results']
+                                        ['city_name'],
+                                    widget.auth,
+                                    widget._isAdmin,
+                                    widget._isAuth,
+                                    widget._admin,
+                                    widget._gp,
+                                    widget._lopc,
+                                    widget._info,
+                                  ),
                                 ),
-                              ),
-                            );
-                          }
-                        },
-                        text: 'Edit',
+                              );
+                            } else {
+                              if (!mounted) {
+                                return;
+                              }
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    result['message'].toString(),
+                                  ),
+                                ),
+                              );
+                            }
+                          },
+                          child: const Text('Edit'),
+                        ),
                       ),
                       SizedBox(
                         width: 20,
                       ),
-                      TabletButton(
-                        action: () => showDialog<String>(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            title: const Text('Logout'),
-                            content:
-                                const Text('Apakah anda yakin ingin logout'),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(context, 'Cancel'),
-                                child: const Text('Cancel'),
-                              ),
-                              TextButton(
-                                onPressed: () async {
-                                  AuthController authController =
-                                      AuthController();
-                                  await authController.logout(widget.auth);
-                                  setState(() {});
-                                  print('logout');
-                                  List<Product> _lod =
-                                      await widget._gp.getDiscount(0);
-                                  List<Product> _lopc =
-                                      await widget._gp.getAllProduct('%%', 0);
-                                  int _dl = await widget._gp.countDiscount();
-                                  int _pl =
-                                      await widget._gp.countBySearch('%%');
+                      SizedBox(
+                        height: 40,
+                        width: 180,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xff737fb3),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                          onPressed: () => showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: const Text('Logout'),
+                              content:
+                                  const Text('Apakah anda yakin ingin logout'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(context, 'Cancel'),
+                                  child: const Text('Cancel'),
+                                ),
+                                TextButton(
+                                  onPressed: () async {
+                                    AuthController authController =
+                                        AuthController();
+                                    await authController.logout(widget.auth);
+                                    setState(() {});
+                                    print('logout');
+                                    List<Product> _lod =
+                                        await widget._gp.getDiscount(0);
+                                    List<Product> _lopc =
+                                        await widget._gp.getAllProduct('%%', 0);
+                                    int _dl = await widget._gp.countDiscount();
+                                    int _pl =
+                                        await widget._gp.countBySearch('%%');
 
-                                  if (!mounted) {
-                                    return;
-                                  }
+                                    if (!mounted) {
+                                      return;
+                                    }
 
-                                  Navigator.pop(context, 'OK');
+                                    Navigator.pop(context, 'OK');
 
-                                  Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                      builder: ((context) => Menu(
-                                            Home(
+                                    Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                        builder: ((context) => Menu(
+                                              Home(
+                                                true,
+                                                widget.auth,
+                                                widget._isAdmin,
+                                                widget._admin,
+                                                _lod,
+                                                _lopc,
+                                                widget._gp,
+                                                _dl,
+                                                _pl,
+                                                widget._lopc,
+                                                widget._info,
+                                              ),
                                               true,
                                               widget.auth,
                                               widget._isAdmin,
                                               widget._admin,
-                                              _lod,
-                                              _lopc,
                                               widget._gp,
-                                              _dl,
-                                              _pl,
                                               widget._lopc,
                                               widget._info,
-                                            ),
-                                            true,
-                                            widget.auth,
-                                            widget._isAdmin,
-                                            widget._admin,
-                                            widget._gp,
-                                            widget._lopc,
-                                            widget._info,
-                                          )),
-                                    ),
-                                  );
+                                            )),
+                                      ),
+                                    );
 
-                                  _userController = UserController();
-                                },
-                                child: const Text('OK'),
-                              ),
-                            ],
+                                    _userController = UserController();
+                                  },
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            ),
                           ),
+                          child: const Text('Keluar'),
                         ),
-                        text: 'Logout',
                       ),
                     ],
                   ),
@@ -270,7 +288,7 @@ class _ProfileState extends State<Profile> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Information',
+              'Informasi Anda',
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
@@ -337,7 +355,7 @@ class _ProfileState extends State<Profile> {
                     Padding(
                       padding: EdgeInsets.all(8),
                       child: Text(
-                        'Address',
+                        'Alamat',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
@@ -356,7 +374,7 @@ class _ProfileState extends State<Profile> {
                     Padding(
                       padding: EdgeInsets.all(8),
                       child: Text(
-                        'Phone Number',
+                        'Nomor HP',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
