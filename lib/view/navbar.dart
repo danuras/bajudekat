@@ -9,6 +9,7 @@ import 'package:baju_dekat/model/product_categories.dart';
 import 'package:baju_dekat/view/list_product/list_product.dart';
 import 'package:baju_dekat/view/menu.dart';
 import 'package:baju_dekat/view_controller/controller/get_product.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class NavBar extends StatelessWidget {
   NavBar(this._loc, this._admin, this._isAdmin, this._auth, this._isAuth,
@@ -31,14 +32,19 @@ class NavBar extends StatelessWidget {
           height: 60,
           child: Card(
             elevation: 3.0,
-            child: Material(
-              color: Color(0xff42b549),
-              child: Center(
-                child: Text(
-                  'Tokopedia',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 26,
+            child: GestureDetector(
+              onTap: () async {
+                _launchUrl(Uri.parse(_info.link_market_place));
+              },
+              child: Material(
+                color: Color(0xff42b549),
+                child: Center(
+                  child: Text(
+                    'Tokopedia',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 26,
+                    ),
                   ),
                 ),
               ),
@@ -121,7 +127,7 @@ class NavBar extends StatelessWidget {
         md: 3,
         child: buildSocialIcon(
           FontAwesomeIcons.tiktok,
-          () {},
+          Uri.parse(_info.link_tiktok),
         ),
       ),
       ResponsiveGridCol(
@@ -129,7 +135,7 @@ class NavBar extends StatelessWidget {
         md: 3,
         child: buildSocialIcon(
           FontAwesomeIcons.instagram,
-          () {},
+          Uri.parse(_info.link_instagram),
         ),
       ),
       ResponsiveGridCol(
@@ -137,7 +143,7 @@ class NavBar extends StatelessWidget {
         md: 3,
         child: buildSocialIcon(
           FontAwesomeIcons.facebook,
-          () {},
+          Uri.parse(_info.link_facebook),
         ),
       ),
       ResponsiveGridCol(
@@ -145,7 +151,7 @@ class NavBar extends StatelessWidget {
         md: 3,
         child: buildSocialIcon(
           FontAwesomeIcons.twitter,
-          () {},
+          Uri.parse(_info.link_twitter),
         ),
       ),
       ResponsiveGridCol(
@@ -153,7 +159,7 @@ class NavBar extends StatelessWidget {
         md: 3,
         child: buildSocialIcon(
           FontAwesomeIcons.pinterest,
-          () {},
+          Uri.parse(_info.link_pinterest),
         ),
       ),
       ResponsiveGridCol(
@@ -161,7 +167,7 @@ class NavBar extends StatelessWidget {
         md: 3,
         child: buildSocialIcon(
           FontAwesomeIcons.linkedin,
-          () {},
+          Uri.parse(_info.link_linkedin),
         ),
       ),
       ResponsiveGridCol(
@@ -169,7 +175,7 @@ class NavBar extends StatelessWidget {
         md: 3,
         child: buildSocialIcon(
           FontAwesomeIcons.youtube,
-          () {},
+          Uri.parse(_info.link_youtube),
         ),
       )
     ];
@@ -219,18 +225,24 @@ class NavBar extends StatelessWidget {
     return list;
   }
 
-  Widget buildSocialIcon(IconData icon, VoidCallback action) => Padding(
+  Future<void> _launchUrl(Uri url) async {
+    if (!await launchUrl(url)) {
+      throw 'Could not launch $url';
+    }
+  }
+
+  Widget buildSocialIcon(IconData icon, Uri url) => Padding(
         padding: const EdgeInsets.all(8.0),
         child: CircleAvatar(
           radius: 25,
-          backgroundColor: Colors.blue,
+          backgroundColor: const Color(0xff737fb3),
           child: Material(
             shape: CircleBorder(),
             clipBehavior: Clip.hardEdge,
             color: Colors.transparent,
             child: InkWell(
-              onTap: () {
-                action();
+              onTap: () async {
+                await _launchUrl(url);
               },
               child: Center(
                 child: Icon(icon, size: 32, color: Colors.white),

@@ -95,6 +95,7 @@ class MenejemenProduct extends StatelessWidget {
     return SizedBox(
       width: double.infinity * 2 / 3,
       child: Card(
+        color: const Color(0xff8d9de8),
         elevation: 3.0,
         child: Column(
           children: [
@@ -109,14 +110,14 @@ class MenejemenProduct extends StatelessWidget {
                   Text(
                     title,
                     style: TextStyle(
-                      fontFamily: 'cursive',
                       fontSize: 16,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Spacer(),
                   Material(
-                    color: Colors.green,
+                    color: const Color(0xff737fb3),
                     child: InkWell(
                       onTap: () {
                         Navigator.of(context).push(
@@ -141,7 +142,6 @@ class MenejemenProduct extends StatelessWidget {
                         child: Text(
                           'Tambah Produk',
                           style: TextStyle(
-                            fontFamily: 'cursive',
                             fontSize: 16,
                             color: Colors.white,
                           ),
@@ -209,12 +209,15 @@ class MenejemenProduct extends StatelessWidget {
                             ),
                           ),
                         )
-                      : SizedBox(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'Sebelumnya',
-                              style: TextStyle(color: Colors.white),
+                      : Opacity(
+                          opacity: 0,
+                          child: SizedBox(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'Sebelumnya',
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           ),
                         ),
@@ -266,12 +269,15 @@ class MenejemenProduct extends StatelessWidget {
                             ),
                           ),
                         )
-                      : SizedBox(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'Selanjutnya',
-                              style: TextStyle(color: Colors.white),
+                      : Opacity(
+                          opacity: 0,
+                          child: SizedBox(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'Selanjutnya',
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           ),
                         ),

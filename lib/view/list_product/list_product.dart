@@ -94,6 +94,7 @@ class ListProduct extends StatelessWidget {
     return SizedBox(
       width: double.infinity * 2 / 3,
       child: Card(
+        color: const Color(0xff8d9de8),
         elevation: 3.0,
         child: Column(
           children: [
@@ -109,6 +110,7 @@ class ListProduct extends StatelessWidget {
                     title,
                     style: const TextStyle(
                       fontSize: 16,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -183,12 +185,15 @@ class ListProduct extends StatelessWidget {
                             ),
                           ),
                         )
-                      : SizedBox(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'Sebelumnya',
-                              style: TextStyle(color: Colors.white),
+                      : Opacity(
+                          opacity: 0,
+                          child: SizedBox(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'Sebelumnya',
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           ),
                         ),
@@ -250,12 +255,15 @@ class ListProduct extends StatelessWidget {
                             ),
                           ),
                         )
-                      : SizedBox(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'Selanjutnya',
-                              style: TextStyle(color: Colors.white),
+                      : Opacity(
+                          opacity: 0,
+                          child: SizedBox(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'Selanjutnya',
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           ),
                         ),

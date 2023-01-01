@@ -63,10 +63,9 @@ class Home extends StatelessWidget {
                         const Text(
                           'Promo',
                           style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white
-                          ),
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
                         ),
                         const Spacer(),
                         // button view all
@@ -78,7 +77,7 @@ class Home extends StatelessWidget {
                                 MaterialPageRoute(
                                   builder: ((context) => Menu(
                                         ListProduct(
-                                          'Discount',
+                                          'Promo',
                                           admin,
                                           auth,
                                           isAdmin,
@@ -199,10 +198,9 @@ class Home extends StatelessWidget {
                   const Text(
                     'Semua Produk',
                     style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white
-                    ),
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                   const Spacer(),
                   Material(

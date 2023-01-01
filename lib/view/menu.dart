@@ -128,10 +128,9 @@ class _MenuState extends State<Menu> {
               child: Text(
             'Home',
             style: TextStyle(
-              fontSize: 16, 
-              color: Color(0xff737fb3),
-              fontWeight: FontWeight.bold
-              ),
+                fontSize: 16,
+                color: Color(0xff737fb3),
+                fontWeight: FontWeight.bold),
           )),
         ),
       ),
@@ -219,10 +218,9 @@ class _MenuState extends State<Menu> {
               child: Text(
             'Profil',
             style: TextStyle(
-              fontSize: 16,
-              color: Color(0xff737fb3),
-              fontWeight: FontWeight.bold
-            ),
+                fontSize: 16,
+                color: Color(0xff737fb3),
+                fontWeight: FontWeight.bold),
           )),
         ),
       ),
@@ -261,10 +259,9 @@ class _MenuState extends State<Menu> {
               child: Text(
             'History',
             style: TextStyle(
-              fontSize: 16,
-              color: Color(0xff737fb3),
-                fontWeight: FontWeight.bold
-            ),
+                fontSize: 16,
+                color: Color(0xff737fb3),
+                fontWeight: FontWeight.bold),
           )),
         ),
       ),
@@ -302,10 +299,9 @@ class _MenuState extends State<Menu> {
               child: Text(
             'Kontak',
             style: TextStyle(
-              fontSize: 16,
-              color: Color(0xff737fb3),
-                fontWeight: FontWeight.bold
-            ),
+                fontSize: 16,
+                color: Color(0xff737fb3),
+                fontWeight: FontWeight.bold),
           )),
         ),
       ),
@@ -343,10 +339,9 @@ class _MenuState extends State<Menu> {
             child: Text(
               'Tentang',
               style: TextStyle(
-                fontSize: 16,
-                color: Color(0xff737fb3),
-                  fontWeight: FontWeight.bold
-              ),
+                  fontSize: 16,
+                  color: Color(0xff737fb3),
+                  fontWeight: FontWeight.bold),
             ),
           ),
         ),
@@ -373,10 +368,9 @@ class _MenuState extends State<Menu> {
                     child: Text(
                   'Daftar',
                   style: TextStyle(
-                    fontSize: 16,
-                    color: Color(0xff737fb3),
-                      fontWeight: FontWeight.bold
-                  ),
+                      fontSize: 16,
+                      color: Color(0xff737fb3),
+                      fontWeight: FontWeight.bold),
                 )),
               ),
             )
@@ -405,10 +399,9 @@ class _MenuState extends State<Menu> {
                     child: Text(
                   'Masuk',
                   style: TextStyle(
-                    fontSize: 16,
-                    color: Color(0xff737fb3),
-                      fontWeight: FontWeight.bold
-                  ),
+                      fontSize: 16,
+                      color: Color(0xff737fb3),
+                      fontWeight: FontWeight.bold),
                 )),
               ),
             )
@@ -417,9 +410,9 @@ class _MenuState extends State<Menu> {
           ? DropdownButtonHideUnderline(
               child: DropdownButton2(
                 customButton: const Icon(
-                  Icons.list,
+                  Icons.menu,
                   size: 30,
-                  color: Colors.white,
+                  color: Color(0xff737fb3),
                 ),
                 items: items
                     .map((item) => DropdownMenuItem<String>(
@@ -563,6 +556,7 @@ class _MenuState extends State<Menu> {
           'assets/logo-ori.png',
           height: 30,
         ),
+        iconTheme: IconThemeData(color: Color(0xff737fb3)),
         actions: ((MediaQuery.of(context).size.width > 1110)
                 ? _listOfBar
                 : [SizedBox(), Text('')]) +
@@ -621,10 +615,7 @@ class _MenuState extends State<Menu> {
                       ),
                     )
                   : IconButton(
-                      icon: const Icon(
-                        Icons.search,
-                        color: Color(0xff737fb3)
-                      ),
+                      icon: const Icon(Icons.search, color: Color(0xff737fb3)),
                       onPressed: () {
                         Navigator.of(context).push(
                           PageRouteBuilder(
@@ -646,10 +637,8 @@ class _MenuState extends State<Menu> {
                       },
                     ),
               IconButton(
-                icon: const Icon(
-                  Icons.shopping_cart_outlined,
-                  color: Color(0xff737fb3)
-                ),
+                icon: const Icon(Icons.shopping_cart_outlined,
+                    color: Color(0xff737fb3)),
                 onPressed: () async {
                   ProductTransactionController ptc =
                       ProductTransactionController();
@@ -741,7 +730,9 @@ class _MenuState extends State<Menu> {
           //di dalam listview ini terdapat beberapa widget drawable
           children: [
             ListTile(
-              leading: const Icon(Icons.home),
+              leading: const Icon(
+                Icons.home,
+              ),
               title: const Text(
                 "Home",
               ),

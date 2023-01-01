@@ -33,14 +33,14 @@ class ProductCard extends StatelessWidget {
       newPrice =
           _product.sell_price - _product.sell_price * (_product.discount / 100);
     }
-    return Card(
-      shape: const RoundedRectangleBorder(
-          side: BorderSide(color: Colors.white, width: 2.0)),
-      color: const Color(0xff8d9de8),
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
       child: Container(
         height: 230,
-        padding: const EdgeInsets.all(5.0),
+        decoration:
+            BoxDecoration(border: Border.all(width: 2, color: Colors.white)),
         child: InkWell(
+          focusColor: const Color(0xff8d9de8),
           hoverColor: const Color(0xff737fb3),
           onTap: () async {
             Product _p = await _gp.showById(_product.id, _auth.id);
@@ -70,26 +70,29 @@ class ProductCard extends StatelessWidget {
             );
           },
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: Image.network(
-                  _product.image_url,
-                  width: 144,
-                  height: 144,
-                ),
+              Image.network(
+                _product.image_url,
+                width: 144,
+                height: 144,
               ),
               Text(_product.name),
-              Text(
-                'Rp ' + _product.sell_price.toString(),
-                style: TextStyle(
-                    decoration: (_isDiscount)
-                        ? TextDecoration.lineThrough
-                        : TextDecoration.none),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Rp ' + _product.sell_price.toString(),
+                  style: TextStyle(
+                      decoration: (_isDiscount)
+                          ? TextDecoration.lineThrough
+                          : TextDecoration.none),
+                ),
               ),
               (_isDiscount)
-                  ? Text(
-                      'Rp ' + newPrice.toString(),
+                  ? Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Rp ' + newPrice.toString(),
+                      ),
                     )
                   : SizedBox(),
             ],
