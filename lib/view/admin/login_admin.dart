@@ -212,13 +212,13 @@ class _LoginAdminState extends State<LoginAdmin> {
                                     }
                                   }
                                 },
-                                text: 'Login',
+                                text: 'Masuk',
                               ),
                             ),
                           ],
                         ),
                       ),
-                    ), 
+                    ),
                   ),
                   const Align(
                     alignment: Alignment.topRight,

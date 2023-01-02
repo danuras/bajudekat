@@ -777,7 +777,7 @@ class _MenuState extends State<Menu> {
             ),
             ListTile(
               leading: Icon(Icons.person),
-              title: Text("Profile"),
+              title: Text("Profil"),
               onTap: () async {
                 UserController uc = UserController();
                 var response = await uc.show(widget._auth);
@@ -884,7 +884,7 @@ class _MenuState extends State<Menu> {
             Divider(),
             ListTile(
               leading: Icon(Icons.call),
-              title: Text("Contact"),
+              title: Text("Kontak"),
               onTap: () {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
@@ -912,7 +912,7 @@ class _MenuState extends State<Menu> {
             ),
             ListTile(
               leading: Icon(Icons.info),
-              title: Text("About"),
+              title: Text("Tentang"),
               onTap: () {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
@@ -941,7 +941,7 @@ class _MenuState extends State<Menu> {
             (widget._isAuth)
                 ? ListTile(
                     leading: Icon(Icons.app_registration),
-                    title: Text("Sign Up"),
+                    title: Text("Daftar"),
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
@@ -960,7 +960,7 @@ class _MenuState extends State<Menu> {
             (widget._isAuth)
                 ? ListTile(
                     leading: Icon(Icons.login),
-                    title: Text("Sign In"),
+                    title: Text("Masuk"),
                     onTap: () async {
                       GetCategory _gc =
                           GetCategory(ProductCategoryController());
