@@ -130,7 +130,11 @@ class _SelesaiState extends State<Selesai> {
             mainAxisSize: MainAxisSize.max,
             children: [
               SizedBox(height: 16),
-              Align(alignment: Alignment.centerLeft, child: buildInfo()),
+              Align(
+                  alignment: Alignment.centerLeft,
+                  child: (widget._t.status == 1)
+                      ? buildInfo()
+                      : buildInfoDiterima()),
               Padding(
                 padding: const EdgeInsets.only(
                   right: 50.0,
@@ -151,6 +155,92 @@ class _SelesaiState extends State<Selesai> {
               SizedBox(height: 32),
             ],
           ),
+        ),
+      );
+  Widget buildInfoDiterima() => Container(
+        padding: const EdgeInsets.symmetric(horizontal: 48),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Pesanan Diterima',
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Text(
+              'Silahkan hubungi nomer berikut untuk apabila ingin bertanya.',
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+            Row(
+              children: [
+                Text('WA: '),
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    widget._info.no_telp,
+                  ),
+                )
+              ],
+            ),
+            Row(
+              children: [
+                Text('Nomor Resi: '),
+                Text(
+                  widget._t.nomor_resi,
+                )
+              ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              'Daftar Produk',
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            ResponsiveGridRow(
+              children: listOfProduct(),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              'Rincian transaksi',
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 20),
+            Text(
+              'Total Harga Produk: Rp ' + widget._t.total.toString(),
+            ),
+            Text(
+              'Biaya Pengiriman: Rp ' +
+                  ((widget.ongkos != -1) ? widget.ongkos.toString() : '...'),
+            ),
+            Text(
+              'Total: Rp ' +
+                  ((widget.ongkos != -1)
+                      ? (widget._t.total + widget.ongkos).toString()
+                      : '...'),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+          ],
         ),
       );
 
