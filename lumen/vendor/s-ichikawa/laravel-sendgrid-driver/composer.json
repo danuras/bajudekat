@@ -1,0 +1,47 @@
+{
+    "name": "s-ichikawa/laravel-sendgrid-driver",
+    "description": "This library adds a 'sendgrid' mail driver to Laravel.",
+    "keywords": ["laravel", "sendgrid"],
+    "license": "MIT",
+    "require": {
+        "illuminate/mail": ">=7.0",
+        "illuminate/support": ">=7.0",
+        "guzzlehttp/guzzle": "^6.3 || ^7.0"
+    },
+    "require-dev": {
+        "illuminate/container": ">=7.0",
+        "illuminate/filesystem": ">=7.0",
+        "phpunit/phpunit": "^8.5",
+        "laravel/helpers": "^1.2",
+        "vlucas/phpdotenv": "^4.1 || ^5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sichikawa\\LaravelSendgridDriver\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "files": [
+            "tests/TestCase.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "shingo.ichikawa",
+            "email": "ichikawa.shingo.0829@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/s-ichikawa/laravel-sendgrid-driver/issues"
+    },
+    "suggest": {
+        "s-ichikawa/sendgrid-api-builder": "support to build json for sendgrid api"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Sichikawa\\LaravelSendgridDriver\\SendgridTransportServiceProvider"
+            ]
+        }
+    }
+}
